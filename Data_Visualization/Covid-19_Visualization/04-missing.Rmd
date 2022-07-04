@@ -1,0 +1,45 @@
+# Missing values
+
+```{r, message=FALSE, warning=FALSE}
+library(here)
+library(readr)
+library(tidyverse)
+library(naniar)
+```
+
+```{r}
+epi_country <- readr::read_csv(here::here("./data/epi_country.csv"))
+```
+
+As the epidemiology table is our main focus, we perform a missing value analysis on both the country-level and state-level of this table. 
+
+## Country-level Epidemiology Table
+Among the 163609 rows and 6 columns of the data, a total of 1290 values were missed in 5 columns which are `location_key`, `new_deceased`, `cumulative_deceased`, `new_confirmed`, `cumulative_confirmed`.
+```{r}
+knitr::kable(data.frame(column = names(epi_country), count = colSums(is.na(epi_country)),row.names = NULL) 
+              %>% arrange(desc(count)) %>% filter(count>0), 
+      caption = "Missing values of Country-level Epidemiology Table",align = "l",full_width = F,table.attr = "style='width:30%;'")
+```
+From the missing pattern visualization, we notice that there are a total of 7 missing patterns (excluding complete cases) from over 160000 rows of data with 6 features. The plot in the middle shows all the missing patterns. The plot on the top shows the corresponding frequencies of each patterns while the plot on the right shows the corresponding frequencies of each variables. The majority (~80%) of the missing patterns lacks data in the `location_key` column, which makes these data invalid as `location_key` is the main id of our data. Without `location_key`, we are not able to know where the data is being recorded, and thus the data will be useless in our analysis. The rest of the missing patterns has very minimal occurrences and could be discarded for now in the analysis. 
+
+```{r}
+gg_miss_upset(epi_country)
+```
+
+## State-level Epidemiology Table
+
+```{r}
+epi_state <- readr::read_csv(here::here("./data/epi_us_state.csv"))
+```
+
+Different from the country-level table, the state-level table is very clean. Among the 38537 rows and 6 columns of the data, a total of 9 values were missed in 2 columns which are `cumulative_deceased`, `cumulative_confirmed`. It is possible that the US government has put a great effort on keeping track of the epidemiology statistics. Moreover, as the missing values are all cumulative counts, we can infer these values from the counts of new cases.
+```{r}
+knitr::kable(data.frame(column = names(epi_state), count = colSums(is.na(epi_state)),row.names = NULL) 
+              %>% arrange(desc(count)) %>% filter(count>0), 
+      caption = "Missing values of State-level Epidemiology Table",align = "l",full_width = F,table.attr = "style='width:30%;'")
+```
+
+```{r}
+gg_miss_upset(epi_state)
+```
+

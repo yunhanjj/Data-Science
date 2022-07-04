@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Conclusion | Analysis on Country Data related to COVID-19</title>
+  <meta name="description" content="Chapter 7 Conclusion | Analysis on Country Data related to COVID-19" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Conclusion | Analysis on Country Data related to COVID-19" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Conclusion | Analysis on Country Data related to COVID-19" />
+  
+  
+  
+
+<meta name="author" content="Zeyu Jin, Yunhan Jin" />
+
+
+<meta name="date" content="2021-12-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="interactive-component.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Covid-19 Visualization</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#economic-indicators-by-countries"><i class="fa fa-check"></i><b>2.1</b> Economic Indicators by countries</a></li>
+<li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#covid-19-cases-records"><i class="fa fa-check"></i><b>2.2</b> Covid-19 cases records</a></li>
+<li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#government-emergency-declarations"><i class="fa fa-check"></i><b>2.3</b> Government emergency declarations</a></li>
+<li class="chapter" data-level="2.4" data-path="data-sources.html"><a href="data-sources.html#health-indicators-by-regions"><i class="fa fa-check"></i><b>2.4</b> Health indicators by regions</a></li>
+<li class="chapter" data-level="2.5" data-path="data-sources.html"><a href="data-sources.html#movement-of-people"><i class="fa fa-check"></i><b>2.5</b> Movement of people</a></li>
+<li class="chapter" data-level="2.6" data-path="data-sources.html"><a href="data-sources.html#population-vaccination-records"><i class="fa fa-check"></i><b>2.6</b> Population vaccination records</a></li>
+<li class="chapter" data-level="2.7" data-path="data-sources.html"><a href="data-sources.html#index-reference-table"><i class="fa fa-check"></i><b>2.7</b> Index reference table</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#epidemiology-table"><i class="fa fa-check"></i><b>3.1</b> Epidemiology Table</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#economy-table"><i class="fa fa-check"></i><b>3.2</b> Economy Table</a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#first-mitigation-date-table"><i class="fa fa-check"></i><b>3.3</b> First Mitigation Date Table</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#health-table"><i class="fa fa-check"></i><b>3.4</b> Health Table</a></li>
+<li class="chapter" data-level="3.5" data-path="data-transformation.html"><a href="data-transformation.html#mobility-table"><i class="fa fa-check"></i><b>3.5</b> Mobility Table</a></li>
+<li class="chapter" data-level="3.6" data-path="data-transformation.html"><a href="data-transformation.html#vaccination-table"><i class="fa fa-check"></i><b>3.6</b> Vaccination Table</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#country-level-epidemiology-table"><i class="fa fa-check"></i><b>4.1</b> Country-level Epidemiology Table</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#state-level-epidemiology-table"><i class="fa fa-check"></i><b>4.2</b> State-level Epidemiology Table</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#global-data-analysis"><i class="fa fa-check"></i><b>5.1</b> Global Data Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="results.html"><a href="results.html#country-selection-based-on-economics-and-health-indicators"><i class="fa fa-check"></i><b>5.1.1</b> Country selection based on Economics and Health Indicators</a></li>
+<li class="chapter" data-level="5.1.2" data-path="results.html"><a href="results.html#comparison-of-cumulative-confirmed-and-deceased-covid-cases-for-representative-countries"><i class="fa fa-check"></i><b>5.1.2</b> Comparison of cumulative confirmed and deceased COVID cases for representative countries</a></li>
+<li class="chapter" data-level="5.1.3" data-path="results.html"><a href="results.html#relationship-between-health-indicators-and-covid-mortality-rate"><i class="fa fa-check"></i><b>5.1.3</b> Relationship between health indicators and COVID mortality rate</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#us-state-level-analysis"><i class="fa fa-check"></i><b>5.2</b> US State Level Analysis</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="results.html"><a href="results.html#differences-in-government-reacting-time-between-blue-states-and-red-states."><i class="fa fa-check"></i><b>5.2.1</b> Differences in government reacting time between blue states and red states.</a></li>
+<li class="chapter" data-level="5.2.2" data-path="results.html"><a href="results.html#differences-in-average-percentage-change-of-visits-to-retial-and-recreation-between-blue-states-and-red-states."><i class="fa fa-check"></i><b>5.2.2</b> Differences in average percentage change of visits to retial and recreation between blue states and red states.</a></li>
+<li class="chapter" data-level="5.2.3" data-path="results.html"><a href="results.html#difference-in-the-popularity-of-each-type-of-vaccines."><i class="fa fa-check"></i><b>5.2.3</b> Difference in the popularity of each type of vaccines.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="interactive-component.html"><a href="interactive-component.html#link-to-the-interactive-scatterplot"><i class="fa fa-check"></i><b>6.1</b> Link to the interactive scatterplot</a></li>
+<li class="chapter" data-level="6.2" data-path="interactive-component.html"><a href="interactive-component.html#description"><i class="fa fa-check"></i><b>6.2</b> Description</a></li>
+<li class="chapter" data-level="6.3" data-path="interactive-component.html"><a href="interactive-component.html#instructions-for-using-the-map"><i class="fa fa-check"></i><b>6.3</b> Instructions for using the map</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analysis on Country Data related to COVID-19</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="conclusion" class="section level1" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Conclusion</h1>
+<p>In terms of our key findings, this project investigated COVID-19 related data in the global scale across countries as well as in the state-level within the United States. When we analyzed country data, we first identified representative countries using economic indicators as well as health indicators. We found that health indicators have a noticable negative correlation to the mortality rate related to COVID, whereas economic indicators did not pose much effect. Specifically, countries with high health indicators (better health and medical conditions) typically have lower COVID mortality rates. In this project, we looked at life expectancy. As we found that health indicators have more effect to COVID mortality rates, we constructed a d3 interactive scatter plot with different health indicators. For future directions, it would be interesting to filter countries based on other health indicators not covered in the project. You could use our <a href="https://vizhub.com/Cosmos0603/3324a912c58d4193a05045b96692db3d">interactive graph</a> to select the variable of your interest.</p>
+<p>For the state-level analysis, we categorized <a href="https://www.gkgigs.com/list-of-blue-states-and-red-states/">Democratic and Republican states</a> to look at any differences in terms of response time for mitigation after the first confirmed case and effectiveness in mitigation measured by percentage decrease in people mobility in different settings. We found that even though the red states react faster than the blue states, it seems that the policies of the blue states are more effective than that of the red states as indicated by a larger percentage decrease in mobility. We also looked at the popularity of types of vaccination across all states. Among the three types of vaccines, Pfizer, Moderna, and Janssen, Pfizer’s vaccines are the most popular in each quarter of 2021.</p>
+<p>In terms of limitations of the project, the health indicators for state-level within the USA is lacking. As they are shown to be important in the country-level, it would be interesting to gather more data to look at any differences within the USA. There can also be difference in the relationship, as reflected in a scatter plot, between two of the same health indicators for the state-level vs. the country level. Moreover, it would be beneficial to have the population statistic at the same time as the number of COVID cases. In this way, we can normalize our data by the population for each region to get a more accurate comparison of the effect. Last but not least, there are other data sets within the platform such as hospitalization records, vaccination facility accessibility, etc. which could be used for further analysis.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="interactive-component.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/Cosmos0603/Covid-19_Visualization/edit/main/07-conclusion.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/Cosmos0603/Covid-19_Visualization/blob/main/07-conclusion.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

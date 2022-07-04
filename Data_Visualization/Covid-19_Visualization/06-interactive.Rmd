@@ -1,0 +1,13 @@
+# Interactive component
+
+## Link to the interactive scatterplot
+
+Click [here](https://vizhub.com/Cosmos0603/3324a912c58d4193a05045b96692db3d) or copy the url: https://vizhub.com/Cosmos0603/3324a912c58d4193a05045b96692db3d
+
+## Description
+
+The interactive part of our analysis was built with D3 version 6, which is hosted with https://vizhub.com/. The source code of it can also be found at the [vizhub link](https://vizhub.com/Cosmos0603/3324a912c58d4193a05045b96692db3d?edit=files) in the left tab. At the end of [Section 5.1.3](https://cosmos0603.github.io/Covid-19_Visualization/results.html#relationship-between-health-indicators-and-covid-mortality-rate), we have discussed the relationships between two economic indicators and one health indicators. This interactive scatterplot furtherly allows user to see the correlation between more economic and health indicators of more than 200 countries in the world.
+
+## Instructions for using the map
+
+The plot is initialized with the scatterplot between the two economic indicators GDP and GDP per capita. Each point in the plot represents a country. The variables to be plotted as either X-axis or Y-axis can be selected using the corresponding dropdown menu on the top.

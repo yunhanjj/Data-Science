@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Data sources | Analysis on Country Data related to COVID-19</title>
+  <meta name="description" content="Chapter 2 Data sources | Analysis on Country Data related to COVID-19" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Data sources | Analysis on Country Data related to COVID-19" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Data sources | Analysis on Country Data related to COVID-19" />
+  
+  
+  
+
+<meta name="author" content="Zeyu Jin, Yunhan Jin" />
+
+
+<meta name="date" content="2021-12-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="data-transformation.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Covid-19 Visualization</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#economic-indicators-by-countries"><i class="fa fa-check"></i><b>2.1</b> Economic Indicators by countries</a></li>
+<li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#covid-19-cases-records"><i class="fa fa-check"></i><b>2.2</b> Covid-19 cases records</a></li>
+<li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#government-emergency-declarations"><i class="fa fa-check"></i><b>2.3</b> Government emergency declarations</a></li>
+<li class="chapter" data-level="2.4" data-path="data-sources.html"><a href="data-sources.html#health-indicators-by-regions"><i class="fa fa-check"></i><b>2.4</b> Health indicators by regions</a></li>
+<li class="chapter" data-level="2.5" data-path="data-sources.html"><a href="data-sources.html#movement-of-people"><i class="fa fa-check"></i><b>2.5</b> Movement of people</a></li>
+<li class="chapter" data-level="2.6" data-path="data-sources.html"><a href="data-sources.html#population-vaccination-records"><i class="fa fa-check"></i><b>2.6</b> Population vaccination records</a></li>
+<li class="chapter" data-level="2.7" data-path="data-sources.html"><a href="data-sources.html#index-reference-table"><i class="fa fa-check"></i><b>2.7</b> Index reference table</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#epidemiology-table"><i class="fa fa-check"></i><b>3.1</b> Epidemiology Table</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#economy-table"><i class="fa fa-check"></i><b>3.2</b> Economy Table</a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#first-mitigation-date-table"><i class="fa fa-check"></i><b>3.3</b> First Mitigation Date Table</a></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#health-table"><i class="fa fa-check"></i><b>3.4</b> Health Table</a></li>
+<li class="chapter" data-level="3.5" data-path="data-transformation.html"><a href="data-transformation.html#mobility-table"><i class="fa fa-check"></i><b>3.5</b> Mobility Table</a></li>
+<li class="chapter" data-level="3.6" data-path="data-transformation.html"><a href="data-transformation.html#vaccination-table"><i class="fa fa-check"></i><b>3.6</b> Vaccination Table</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#country-level-epidemiology-table"><i class="fa fa-check"></i><b>4.1</b> Country-level Epidemiology Table</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#state-level-epidemiology-table"><i class="fa fa-check"></i><b>4.2</b> State-level Epidemiology Table</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#global-data-analysis"><i class="fa fa-check"></i><b>5.1</b> Global Data Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="results.html"><a href="results.html#country-selection-based-on-economics-and-health-indicators"><i class="fa fa-check"></i><b>5.1.1</b> Country selection based on Economics and Health Indicators</a></li>
+<li class="chapter" data-level="5.1.2" data-path="results.html"><a href="results.html#comparison-of-cumulative-confirmed-and-deceased-covid-cases-for-representative-countries"><i class="fa fa-check"></i><b>5.1.2</b> Comparison of cumulative confirmed and deceased COVID cases for representative countries</a></li>
+<li class="chapter" data-level="5.1.3" data-path="results.html"><a href="results.html#relationship-between-health-indicators-and-covid-mortality-rate"><i class="fa fa-check"></i><b>5.1.3</b> Relationship between health indicators and COVID mortality rate</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#us-state-level-analysis"><i class="fa fa-check"></i><b>5.2</b> US State Level Analysis</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="results.html"><a href="results.html#differences-in-government-reacting-time-between-blue-states-and-red-states."><i class="fa fa-check"></i><b>5.2.1</b> Differences in government reacting time between blue states and red states.</a></li>
+<li class="chapter" data-level="5.2.2" data-path="results.html"><a href="results.html#differences-in-average-percentage-change-of-visits-to-retial-and-recreation-between-blue-states-and-red-states."><i class="fa fa-check"></i><b>5.2.2</b> Differences in average percentage change of visits to retial and recreation between blue states and red states.</a></li>
+<li class="chapter" data-level="5.2.3" data-path="results.html"><a href="results.html#difference-in-the-popularity-of-each-type-of-vaccines."><i class="fa fa-check"></i><b>5.2.3</b> Difference in the popularity of each type of vaccines.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="interactive-component.html"><a href="interactive-component.html#link-to-the-interactive-scatterplot"><i class="fa fa-check"></i><b>6.1</b> Link to the interactive scatterplot</a></li>
+<li class="chapter" data-level="6.2" data-path="interactive-component.html"><a href="interactive-component.html#description"><i class="fa fa-check"></i><b>6.2</b> Description</a></li>
+<li class="chapter" data-level="6.3" data-path="interactive-component.html"><a href="interactive-component.html#instructions-for-using-the-map"><i class="fa fa-check"></i><b>6.3</b> Instructions for using the map</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analysis on Country Data related to COVID-19</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-sources" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
+<p>The primary data sources for this project include Wikidata, DataCommons, Eurostat, WorldBank, WorldPop, LawAtlas Project, University of Oxford, Google LLC, and etc. Since this project involves large amounts of data acorss countries around the world as well as all states within the USA, we utilized the aggregated dataset <a href="https://github.com/GoogleCloudPlatform/covid-19-open-data">COVID-19 Open Dataset</a>, which did not clean or modify the data from the original source, which we verified.</p>
+<p>From the above data source, we collected and used six datasets: Economic indicators by countries, Covid-19 cases records, government emergency declarations, health indicators by regions, movement of people, and population vaccination records. Furthermore, we used an index data table which contains references to id/keys from other tables.</p>
+<div id="economic-indicators-by-countries" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Economic Indicators by countries</h2>
+<p><strong>Dataset: <a href="https://storage.googleapis.com/covid19-open-data/v3/economy.csv">economy.csv</a></strong></p>
+<p>The economy dataset is consisted of 365 rows with 4 columns, as described below. Each row corresponds to a country. This dataset mainly describes important ecocnomic indicators associated with each country.</p>
+<p><strong>Schema</strong></p>
+<table>
+<colgroup>
+<col width="15%" />
+<col width="15%" />
+<col width="42%" />
+<col width="26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Name</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>key</strong></td>
+<td><code>string</code></td>
+<td>Unique string identifying the region</td>
+<td>US</td>
+</tr>
+<tr class="even">
+<td><strong>gdp</strong></td>
+<td><code>integer</code> <code>[USD]</code></td>
+<td>Gross domestic product; monetary value of all finished goods and services</td>
+<td>24450604878</td>
+</tr>
+<tr class="odd">
+<td><strong>gdp_per_capita</strong></td>
+<td><code>integer</code> <code>[USD]</code></td>
+<td>Gross domestic product divided by total population</td>
+<td>1148</td>
+</tr>
+<tr class="even">
+<td><strong>human_capital_index</strong></td>
+<td><code>double</code> <code>[0-1]</code></td>
+<td>Mobilization of the economic and professional potential of citizens</td>
+<td>0.765</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Sources of data</strong></p>
+<details>
+<summary>
+Show data sources
+</summary>
+<table>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Source</th>
+<th>License and Terms of Use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Metadata</td>
+<td><a href="https://wikidata.org">Wikipedia</a></td>
+<td><a href="https://foundation.wikimedia.org/wiki/Terms_of_Use">Terms of Use</a></td>
+</tr>
+<tr class="even">
+<td>Metadata</td>
+<td><a href="https://ec.europa.eu/eurostat">Eurostat</a></td>
+<td><a href="https://ec.europa.eu/info/legal-notice_en#copyright-notice">CC BY</a></td>
+</tr>
+<tr class="odd">
+<td>Economy</td>
+<td><a href="https://wikidata.org">Wikidata</a></td>
+<td><a href="https://www.wikidata.org/wiki/Wikidata:Licensing">CC0</a></td>
+</tr>
+<tr class="even">
+<td>Economy</td>
+<td><a href="https://datacommons.org">DataCommons</a></td>
+<td><a href="https://policies.google.com/terms">Attribution required</a></td>
+</tr>
+<tr class="odd">
+<td>Economy</td>
+<td><a href="https://worldbank.org">WorldBank</a></td>
+<td><a href="https://www.worldbank.org/en/about/legal/terms-of-use-for-datasets">CC BY</a></td>
+</tr>
+</tbody>
+</table>
+</details>
+</div>
+<div id="covid-19-cases-records" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Covid-19 cases records</h2>
+<p><strong>Dataset: <a href="https://storage.googleapis.com/covid19-open-data/v3/epidemiology.csv">epidemiology.csv</a></strong></p>
+<p>The epidemiology dataset is fairly large. It consists of 9517268 rows with 10 columns, as described below. This dataset is time-series, with dates associated with each country/region. The major information includes newly confirmed, deceased, tested number of individuals with COVID-19 as well as the cumulative amounts for each category.</p>
+<p><strong>Schema</strong></p>
+<table>
+<colgroup>
+<col width="15%" />
+<col width="15%" />
+<col width="42%" />
+<col width="26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>date</strong></td>
+<td><code>string</code></td>
+<td>ISO 8601 date (YYYY-MM-DD) of the datapoint</td>
+<td>2020-03-30</td>
+</tr>
+<tr class="even">
+<td><strong>key</strong></td>
+<td><code>string</code></td>
+<td>Unique string identifying the region</td>
+<td>CN_HB</td>
+</tr>
+<tr class="odd">
+<td><strong>new_confirmed<sup>1</sup></strong></td>
+<td><code>integer</code></td>
+<td>Count of new cases confirmed after positive test on this date</td>
+<td>34</td>
+</tr>
+<tr class="even">
+<td><strong>new_deceased<sup>1</sup></strong></td>
+<td><code>integer</code></td>
+<td>Count of new deaths from a positive COVID-19 case on this date</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td><strong>new_recovered<sup>1</sup></strong></td>
+<td><code>integer</code></td>
+<td>Count of new recoveries from a positive COVID-19 case on this date</td>
+<td>13</td>
+</tr>
+<tr class="even">
+<td><strong>new_tested<sup>2</sup></strong></td>
+<td><code>integer</code></td>
+<td>Count of new COVID-19 tests performed on this date</td>
+<td>13</td>
+</tr>
+<tr class="odd">
+<td><strong>cumulative_confirmed<sup>3</sup></strong></td>
+<td><code>integer</code></td>
+<td>Cumulative sum of cases confirmed after positive test to date</td>
+<td>6447</td>
+</tr>
+<tr class="even">
+<td><strong>cumulative_deceased<sup>3</sup></strong></td>
+<td><code>integer</code></td>
+<td>Cumulative sum of deaths from a positive COVID-19 case to date</td>
+<td>133</td>
+</tr>
+<tr class="odd">
+<td><strong>cumulative_recovered<sup>3</sup></strong></td>
+<td><code>integer</code></td>
+<td>Cumulative sum of recoveries from a positive COVID-19 case to date</td>
+<td>133</td>
+</tr>
+<tr class="even">
+<td><strong>cumulative_tested<sup>2,3</sup></strong></td>
+<td><code>integer</code></td>
+<td>Cumulative sum of COVID-19 tests performed to date</td>
+<td>133</td>
+</tr>
+</tbody>
+</table>
+<p><sup>1</sup>Values can be negative, typically indicating a correction or an adjustment in the way
+they were measured. For example, a case might have been incorrectly flagged as recovered one date so
+it will be subtracted from the following date.<br />
+<sup>2</sup>Some health authorities only report PCR testing. This variable usually refers to cumulative
+number of tests and not tested persons, but some health authorities only report tested persons.<br />
+<sup>3</sup>Cumulative count will not always amount to the sum of daily counts, because many authorities
+make changes to criteria for counting cases, but not always make adjustments to the data. There is
+also potential missing data. All of that makes the cumulative counts <em>drift</em> away from the sum of all
+daily counts over time, which is why the cumulative values, if reported, are kept in a separate
+column.</p>
+<p><strong>Sources of data</strong></p>
+<details>
+<summary>
+Show data sources
+</summary>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="17%" />
+<col width="70%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Source</th>
+<th>License and Terms of Use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Country-level data</td>
+<td><a href="https://www.ecdc.europa.eu">ECDC</a></td>
+<td><a href="https://www.ecdc.europa.eu/en/copyright">Attribution required</a></td>
+</tr>
+<tr class="even">
+<td>Country-level data</td>
+<td><a href="https://ourworldindata.org">Our World in Data</a></td>
+<td><a href="https://ourworldindata.org/how-to-use-our-world-in-data#how-is-our-work-copyrighted">CC BY</a></td>
+</tr>
+<tr class="odd">
+<td>Country-level data</td>
+<td><a href="https://covid19.who.int">WHO</a></td>
+<td><a href="https://www.who.int/about/who-we-are/publishing-policies/data-policy/terms-and-conditions">Attribution required</a></td>
+</tr>
+<tr class="even">
+<td>Afghanistan</td>
+<td><a href="https://data.humdata.org/dataset/afghanistan-covid-19-statistics-per-province">HDX</a></td>
+<td><a href="https://data.humdata.org/about/license">CC BY</a></td>
+</tr>
+<tr class="odd">
+<td>Argentina</td>
+<td><a href="https://datos.gob.ar/dataset/salud-covid-19-casos-registrados-republica-argentina">Datos Argentina</a></td>
+<td><a href="https://datos.gob.ar/acerca/seccion/marco-legal">Public domain</a></td>
+</tr>
+<tr class="even">
+<td>Australia</td>
+<td><a href="https://covidlive.com.au/">COVID LIVE</a></td>
+<td><a href="https://creativecommons.org/licenses/by/4.0/">CC BY</a></td>
+</tr>
+<tr class="odd">
+<td>Austria</td>
+<td><a href="https://www.data.gv.at/covid-19/">Open Data Österreich</a></td>
+<td><a href="https://www.data.gv.at/covid-19/">CC BY</a></td>
+</tr>
+<tr class="even">
+<td>Bangladesh</td>
+<td><a href="http://covid19tracker.gov.bd" class="uri">http://covid19tracker.gov.bd</a></td>
+<td><a href="http://covid19tracker.gov.bd/#tab_1_4">Public Domain</a></td>
+</tr>
+<tr class="odd">
+<td>Belgium</td>
+<td><a href="https://epistat.wiv-isp.be">Belgian institute for health</a></td>
+<td><a href="https://www.health.belgium.be/en/legal-information">Attribution required</a></td>
+</tr>
+<tr class="even">
+<td>Brazil</td>
+<td><a href="https://coronavirus.saude.gov.br/">Brazil Ministério da Saúde</a></td>
+<td><a href="http://www.opendefinition.org/licenses/cc-by">Creative Commons Atribuição</a></td>
+</tr>
+<tr class="odd">
+<td>Brazil (Rio de Janeiro)</td>
+<td><a href="http://www.data.rio/" class="uri">http://www.data.rio/</a></td>
+<td><a href="https://www.data.rio/datasets/f314453b3a55434ea8c8e8caaa2d8db5">Dados abertos</a></td>
+</tr>
+<tr class="even">
+<td>Brazil (Ceará)</td>
+<td><a href="https://saude.ce.gov.br" class="uri">https://saude.ce.gov.br</a></td>
+<td><a href="https://cearatransparente.ce.gov.br/portal-da-transparencia">Dados abertos</a></td>
+</tr>
+<tr class="odd">
+<td>Canada</td>
+<td><a href="https://www.canada.ca/en/public-health">Department of Health Canada</a></td>
+<td><a href="https://www.canada.ca/en/transparency/terms.html">Attribution required</a></td>
+</tr>
+<tr class="even">
+<td>Canada</td>
+<td><a href="https://art-bd.shinyapps.io/covid19canada/">COVID-19 Canada Open Data Working Group</a></td>
+<td><a href="https://github.com/ishaberry/Covid19Canada/blob/master/LICENSE.MD">CC BY</a></td>
+</tr>
+<tr class="odd">
+<td>Chile</td>
+<td><a href="http://www.minciencia.gob.cl/COVID19">Ministerio de Ciencia de Chile</a></td>
+<td><a href="http://www.minciencia.gob.cl/sites/default/files/1771596.pdf">Terms of use</a></td>
+</tr>
+<tr class="even">
+<td>China</td>
+<td><a href="https://github.com/BlankerL/DXY-COVID-19-Data">DXY COVID-19 dataset</a></td>
+<td><a href="https://github.com/BlankerL/DXY-COVID-19-Data/blob/master/LICENSE">MIT</a></td>
+</tr>
+<tr class="odd">
+<td>Colombia</td>
+<td><a href="https://www.datos.gov.co">Datos Abiertos Colombia</a></td>
+<td><a href="https://herramientas.datos.gov.co/es/terms-and-conditions-es">Attribution required</a></td>
+</tr>
+<tr class="even">
+<td>Czech Republic</td>
+<td><a href="https://onemocneni-aktualne.mzcr.cz/covid-19">Ministry of Health of the Czech Republic</a></td>
+<td><a href="https://www.jmir.org/2020/5/e19367">Open Data</a></td>
+</tr>
+<tr class="odd">
+<td>Democratic Republic of Congo</td>
+<td><a href="https://data.humdata.org/dataset/democratic-republic-of-the-congo-coronavirus-covid-19-subnational-cases">HDX</a></td>
+<td><a href="https://data.humdata.org/about/license">CC BY</a></td>
+</tr>
+<tr class="even">
+<td>Estonia</td>
+<td><a href="https://www.terviseamet.ee/et/koroonaviirus/avaandmed">Health Board of Estonia</a></td>
+<td><a href="https://www.terviseamet.ee/et/koroonaviirus/avaandmed">Open Data</a></td>
+</tr>
+<tr class="odd">
+<td>Finland</td>
+<td><a href="https://thl.fi/en/web/thlfi-en">Finnish institute for health and welfare</a></td>
+<td><a href="https://thl.fi/en/web/thlfi-en/statistics/statistical-databases/open-data">CC BY</a></td>
+</tr>
+<tr class="even">
+<td>France</td>
+<td><a href="https://data.gouv.fr">data.gouv.fr</a></td>
+<td><a href="https://www.etalab.gouv.fr/licence-ouverte-open-licence">Open License 2.0</a></td>
+</tr>
+<tr class="odd">
+<td>Germany</td>
+<td><a href="https://npgeo-corona-npgeo-de.hub.arcgis.com/datasets/dd4580c810204019a7b8eb3e0b329dd6_0?page=26">Robert Koch Institute</a></td>
+<td><a href="https://www.govdata.de/dl-de/by-2-0">Attribution Required</a></td>
+</tr>
+<tr class="even">
+<td>Haiti</td>
+<td><a href="https://data.humdata.org/dataset/haiti-covid-19-subnational-cases">HDX</a></td>
+<td><a href="https://data.humdata.org/about/license">CC-BY</a></td>
+</tr>
+<tr class="odd">
+<td>Hong Kong</td>
+<td><a href="https://data.gov.hk/en-data/dataset/hk-dh-chpsebcddr-novel-infectious-agent">Hong Kong Department of Health</a></td>
+<td><a href="https://data.gov.hk/en/terms-and-conditions">Attribution Required</a></td>
+</tr>
+<tr class="even">
+<td>Israel</td>
+<td><a href="https://data.gov.il/dataset/covid-19">Israel Government Data Portal</a></td>
+<td><a href="https://data.gov.il/terms">Attribution Required</a></td>
+</tr>
+<tr class="odd">
+<td>Haiti</td>
+<td><a href="https://data.humdata.org/dataset/haiti-covid-19-subnational-cases">HDX</a></td>
+<td><a href="https://data.humdata.org/about/license">CC BY</a></td>
+</tr>
+<tr class="even">
+<td>India</td>
+<td><a href="https://en.wikipedia.org/wiki/Template:2019-20_coronavirus_pandemic_data/India_medical_cases">Wikipedia</a></td>
+<td><a href="https://foundation.wikimedia.org/wiki/Terms_of_Use">Attribution Required</a></td>
+</tr>
+<tr class="odd">
+<td>India</td>
+<td><a href="https://www.covid19india.org/">Covid 19 India Organisation</a></td>
+<td><a href="http://creativecommons.org/licenses/by/4.0/">CC BY</a></td>
+</tr>
+<tr class="even">
+<td>Indonesia</td>
+<td><a href="https://covid19.go.id/peta-sebaran" class="uri">https://covid19.go.id/peta-sebaran</a></td>
+<td>Public Domain</td>
+</tr>
+<tr class="odd">
+<td>Italy</td>
+<td><a href="https://github.com/pcm-dpc/COVID-19">Italy’s Department of Civil Protection</a></td>
+<td><a href="https://github.com/pcm-dpc/COVID-19/blob/master/LICENSE">CC BY</a></td>
+</tr>
+<tr class="even">
+<td>Iraq</td>
+<td><a href="https://data.humdata.org/dataset/iraq-coronavirus-covid-19-subnational-cases">HDX</a></td>
+<td><a href="https://data.humdata.org/about/license">CC BY</a></td>
+</tr>
+<tr class="odd">
+<td>Japan</td>
+<td><a href="https://github.com/swsoyee/2019-ncov-japan" class="uri">https://github.com/swsoyee/2019-ncov-japan</a></td>
+<td><a href="https://github.com/swsoyee/2019-ncov-japan/blob/master/LICENSE">MIT</a></td>
+</tr>
+<tr class="even">
+<td>Japan</td>
+<td><a href="https://github.com/kaz-ogiwara/covid19" class="uri">https://github.com/kaz-ogiwara/covid19</a></td>
+<td><a href="https://github.com/kaz-ogiwara/covid19/blob/master/LICENSE">MIT</a></td>
+</tr>
+<tr class="odd">
+<td>Libya</td>
+<td><a href="https://data.humdata.org/dataset/libya-coronavirus-covid-19-subnational-cases">HDX</a></td>
+<td><a href="https://data.humdata.org/about/license">CC BY</a></td>
+</tr>
+<tr class="even">
+<td>Luxembourg</td>
+<td><a href="https://data.public.lu/fr/datasets/donnees-covid19">data.public.lu</a></td>
+<td><a href="https://data.public.lu/fr/datasets/?license=cc-zero">CC0</a></td>
+</tr>
+<tr class="odd">
+<td>Malaysia</td>
+<td><a href="https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_Malaysia">Wikipedia</a></td>
+<td><a href="https://foundation.wikimedia.org/wiki/Terms_of_Use">Attribution Required</a></td>
+</tr>
+<tr class="even">
+<td>Mexico</td>
+<td><a href="https://coronavirus.gob.mx/">Secretaría de Salud Mexico</a></td>
+<td><a href="https://datos.gob.mx/libreusomx">Attribution Required</a></td>
+</tr>
+<tr class="odd">
+<td>Netherlands</td>
+<td><a href="https://data.rivm.nl/covid-19">RIVM</a></td>
+<td><a href="https://databronnencovid19.nl/Disclaimer">Public Domain</a></td>
+</tr>
+<tr class="even">
+<td>New Zealand</td>
+<td><a href="https://www.health.govt.nz/our-work/diseases-and-conditions/covid-19-novel-coronavirus/covid-19-data-and-statistics">Ministry of Health</a></td>
+<td><a href="https://www.health.govt.nz/about-site/copyright">CC-BY</a></td>
+</tr>
+<tr class="odd">
+<td>Norway</td>
+<td><a href="https://github.com/covid19-eu-zh/covid19-eu-data">COVID19 EU Data</a></td>
+<td><a href="https://github.com/covid19-eu-zh/covid19-eu-data/issues/57">MIT</a></td>
+</tr>
+<tr class="even">
+<td>Pakistan</td>
+<td><a href="https://en.wikipedia.org/wiki/Template:2019-20_coronavirus_pandemic_data/Pakistan_medical_cases">Wikipedia</a></td>
+<td><a href="https://foundation.wikimedia.org/wiki/Terms_of_Use">Attribution Required</a></td>
+</tr>
+<tr class="odd">
+<td>Peru</td>
+<td><a href="https://www.datosabiertos.gob.pe/group/datos-abiertos-de-covid-19">Datos Abiertos Peru</a></td>
+<td><a href="http://opendefinition.org/licenses/odc-by/">ODC BY</a></td>
+</tr>
+<tr class="even">
+<td>Philippines</td>
+<td><a href="http://www.doh.gov.ph/covid19tracker">Philippines Department of Health</a></td>
+<td><a href="https://drive.google.com/file/d/1LzY2eLzZQdLR9yuoNufGEBN5Ily8ZTdV">Attribution required</a></td>
+</tr>
+<tr class="odd">
+<td>Poland</td>
+<td><a href="https://github.com/covid19-eu-zh/covid19-eu-data">COVID19 EU Data</a></td>
+<td><a href="https://github.com/covid19-eu-zh/covid19-eu-data/issues/57">MIT</a></td>
+</tr>
+<tr class="even">
+<td>Portugal</td>
+<td><a href="https://github.com/carlospramalheira/covid19">COVID-19: Portugal</a></td>
+<td><a href="https://github.com/carlospramalheira/covid19/blob/master/LICENSE">MIT</a></td>
+</tr>
+<tr class="odd">
+<td>Romania</td>
+<td><a href="https://github.com/adrianp/covid19romania" class="uri">https://github.com/adrianp/covid19romania</a></td>
+<td><a href="https://github.com/adrianp/covid19romania/blob/master/LICENSE">CC0</a></td>
+</tr>
+<tr class="even">
+<td>Romania</td>
+<td><a href="https://datelazi.ro/" class="uri">https://datelazi.ro/</a></td>
+<td><a href="https://stirioficiale.ro/termeni-si-conditii-de-utilizare">Terms of Service</a></td>
+</tr>
+<tr class="odd">
+<td>Russia</td>
+<td><a href="https://стопкоронавирус.рф" class="uri">https://стопкоронавирус.рф</a> (via <span class="citation">[@jeetiss]</span>(<a href="https://github.com/jeetiss/covid19-russia" class="uri">https://github.com/jeetiss/covid19-russia</a>)</td>
+<td><a href="http://creativecommons.org/licenses/by/4.0/">CC BY</a></td>
+</tr>
+<tr class="even">
+<td>Slovenia</td>
+<td><a href="https://www.gov.si" class="uri">https://www.gov.si</a></td>
+<td><a href="https://foundation.wikimedia.org/wiki/Terms_of_Use">Attribution Required</a></td>
+</tr>
+<tr class="odd">
+<td>South Africa</td>
+<td><a href="https://finmango.org/covid">FinMango COVID-19 Data</a></td>
+<td><a href="https://finmango.org/covid">CC BY</a></td>
+</tr>
+<tr class="even">
+<td>South Korea</td>
+<td><a href="https://en.wikipedia.org/wiki/Template:2019%E2%80%9320_coronavirus_pandemic_data/South_Korea_medical_cases">Wikipedia</a></td>
+<td><a href="https://foundation.wikimedia.org/wiki/Terms_of_Use">Attribution Required</a></td>
+</tr>
+<tr class="odd">
+<td>Spain</td>
+<td><a href="https://covid19.isciii.es">Ministry of Health</a></td>
+<td><a href="https://www.mscbs.gob.es/avisoLegal/home.html">Attribution required</a></td>
+</tr>
+<tr class="even">
+<td>Spain (Canary Islands)</td>
+<td><a href="https://grafcan1.maps.arcgis.com/apps/opsdashboard/index.html#/156eddd4d6fa4ff1987468d1fd70efb6">Gobierno de Canarias</a></td>
+<td><a href="https://www.gobiernodecanarias.org/principal/avisolegal.html">Attribution required</a></td>
+</tr>
+<tr class="odd">
+<td>Spain (Catalonia)</td>
+<td><a href="https://analisi.transparenciacatalunya.cat/">Dades Obertes Catalunya</a></td>
+<td><a href="https://web.gencat.cat/ca/menu-ajuda/ajuda/avis_legal/">CC0</a></td>
+</tr>
+<tr class="even">
+<td>Spain (Madrid)</td>
+<td><a href="https://www.comunidad.madrid/gobierno/datos-abiertos">Datos Abiertos Madrid</a></td>
+<td><a href="https://www.comunidad.madrid/gobierno/datos-abiertos/reutiliza#condiciones-uso">Attribution required</a></td>
+</tr>
+<tr class="odd">
+<td>Sudan</td>
+<td><a href="https://data.humdata.org/dataset/sudan-coronavirus-covid-19-subnational-cases">HDX</a></td>
+<td><a href="https://data.humdata.org/about/license">CC BY</a></td>
+</tr>
+<tr class="even">
+<td>Sweden</td>
+<td><a href="https://www.folkhalsomyndigheten.se/the-public-health-agency-of-sweden/">Public Health Agency of Sweden</a></td>
+<td>Fair Use</td>
+</tr>
+<tr class="odd">
+<td>Switzerland</td>
+<td><a href="https://open.zh.ch">OpenZH data</a></td>
+<td><a href="https://github.com/openZH/covid_19/blob/master/LICENSE">CC BY</a></td>
+</tr>
+<tr class="even">
+<td>Taiwan</td>
+<td><a href="https://data.cdc.gov.tw/en/dataset/agsdctable-day-19cov/resource/3c1e263d-16ec-4d70-b56c-21c9e2171fc7">Ministry of Health and Welfare</a></td>
+<td><a href="https://data.gov.tw/license">Attribution Required</a></td>
+</tr>
+<tr class="odd">
+<td>Thailand</td>
+<td><a href="https://covid19.th-stat.com/">Ministry of Public Health</a></td>
+<td>Fair Use</td>
+</tr>
+<tr class="even">
+<td>Ukraine</td>
+<td><a href="https://covid19.rnbo.gov.ua/">National Security and Defense Council of Ukraine</a></td>
+<td><a href="https://www.kmu.gov.ua/#layout-footer">CC BY</a></td>
+</tr>
+<tr class="odd">
+<td>United Kingdom</td>
+<td><a href="https://github.com/tomwhite/covid-19-uk-data" class="uri">https://github.com/tomwhite/covid-19-uk-data</a></td>
+<td><a href="https://github.com/tomwhite/covid-19-uk-data/blob/master/LICENSE.txt">The Unlicense</a></td>
+</tr>
+<tr class="even">
+<td>United Kingdom</td>
+<td><a href="https://coronavirus.data.gov.uk/" class="uri">https://coronavirus.data.gov.uk/</a></td>
+<td>Attribution required, <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a></td>
+</tr>
+<tr class="odd">
+<td>USA</td>
+<td><a href="https://github.com/nytimes">NYT COVID Dataset</a></td>
+<td><a href="https://github.com/nytimes/covid-19-data/blob/master/LICENSE">Attribution required, non-commercial use</a></td>
+</tr>
+<tr class="even">
+<td>USA</td>
+<td><a href="https://covidtracking.com">COVID Tracking Project</a></td>
+<td><a href="https://covidtracking.com/license">CC BY</a></td>
+</tr>
+<tr class="odd">
+<td>USA (Alaska)</td>
+<td><a href="http://dhss.alaska.gov/dph/Epi/id/Pages/COVID-19/default.aspx">Alaska Department of Health and Social Services</a></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>USA (D.C.)</td>
+<td><a href="https://coronavirus.dc.gov/">Government of the District of Columbia</a></td>
+<td><a href="https://dc.gov/node/939602">Public Domain</a></td>
+</tr>
+<tr class="odd">
+<td>USA (Delaware)</td>
+<td><a href="https://coronavirus.dc.gov/">Delaware Health and Social Services</a></td>
+<td><a href="https://coronavirus.delaware.gov/coronavirus-graphics/">Public Domain</a></td>
+</tr>
+<tr class="even">
+<td>USA (Florida)</td>
+<td><a href="https://floridahealthcovid19.gov/">Florida Health</a></td>
+<td><a href="https://www.dms.myflorida.com/support/terms_and_conditions">Public Domain</a></td>
+</tr>
+<tr class="odd">
+<td>USA (Indiana)</td>
+<td><a href="https://hub.mph.in.gov/organization/indiana-state-department-of-health">Indiana Department of Health</a></td>
+<td><a href="hhttp://www.opendefinition.org/licenses/cc-by">CC BY</a></td>
+</tr>
+<tr class="even">
+<td>USA (Massachusetts)</td>
+<td><a href="https://www.mass.gov/info-details/covid-19-updates-and-information">MCAD COVID-19 Information &amp; Resource Center</a></td>
+<td><a href="https://www.mass.gov/terms-of-use-policy">Public Domain</a></td>
+</tr>
+<tr class="odd">
+<td>USA (New York)</td>
+<td><a href="https://www1.nyc.gov/site/doh/covid/covid-19-data.page">New York City Health Department</a></td>
+<td><a href="https://www1.nyc.gov/home/terms-of-use.page">Public Domain</a></td>
+</tr>
+<tr class="even">
+<td>USA (San Francisco)</td>
+<td><a href="https://data.sfgov.org/stories/s/dak2-gvuj">SF Open Data</a></td>
+<td><a href="https://datasf.org/opendata/terms-of-use/#toc8">Public Domain Dedication and License</a></td>
+</tr>
+<tr class="odd">
+<td>USA (Texas)</td>
+<td><a href="https://dshs.texas.gov">Texas Department of State Health Services</a></td>
+<td><a href="https://dshs.texas.gov/policy/copyright.shtm">Attribution required</a></td>
+</tr>
+<tr class="even">
+<td>USA (Washington)</td>
+<td><a href="https://www.doh.wa.gov/Emergencies/COVID19/DataDashboard">Washington State Department of Health</a></td>
+<td><a href="https://www.doh.wa.gov/PrivacyandCopyright">Public Domain</a></td>
+</tr>
+<tr class="odd">
+<td>Venezuela</td>
+<td><a href="https://data.humdata.org/dataset/corona-virus-covid-19-cases-and-deaths-in-venezuela">HDX</a></td>
+<td><a href="https://data.humdata.org/about/license">CC BY</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="government-emergency-declarations" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Government emergency declarations</h2>
+<p><strong>Dataset: <a href="https://storage.googleapis.com/covid19-open-data/v3/lawatlas-emergency-declarations.csv">lawatlas-emergency-declarations.csv</a></strong></p>
+<p>The emergency declarations dataset contains emergency declarations and mitigation policies for each US state starting on
+January 20, 2020. The data are aggregated by the <a href="https://finmango.org/covid">Policy Surveillance Program</a> at the Temple
+University Center for Public Health Law Research, and are published and maintained at
+<a href="https://finmango.org/covid">LawAtlas.org</a>. This dataset contains 8364 rows with 104 columns. It is a time-series data frame with dates corresponding to each location, along with boolean variables indicating the whether a state of action is effective.</p>
+<p><strong>Schema</strong></p>
+<p>Some major columns include:</p>
+<table>
+<colgroup>
+<col width="15%" />
+<col width="15%" />
+<col width="42%" />
+<col width="26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>date</strong></td>
+<td><code>string</code></td>
+<td>ISO 8601 date (YYYY-MM-DD) of the datapoint</td>
+<td>2020-03-30</td>
+</tr>
+<tr class="even">
+<td><strong>key</strong></td>
+<td><code>string</code></td>
+<td>Unique string identifying the region</td>
+<td>US_CA</td>
+</tr>
+<tr class="odd">
+<td><strong>lawatlas_mitigation_policy</strong></td>
+<td><code>integer</code> <code>[0-1]</code></td>
+<td>Has the state instituted legal action aimed at mitigating the spread of COVID-19?</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><strong>lawatlas_state_emergency</strong></td>
+<td><code>integer</code> <code>[0-1]</code></td>
+<td>Is there an emergency declaration in effect in the state?</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td><strong>lawatlas_emerg_statewide</strong></td>
+<td><code>integer</code> <code>[0-1]</code></td>
+<td>Does the emergency declaration apply statewide?</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><strong>lawatlas_travel_requirement</strong></td>
+<td><code>integer</code> <code>[0-1]</code></td>
+<td>Is there a restriction on travelers?</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Sources of data</strong></p>
+<details>
+<summary>
+Show data sources
+</summary>
+<table>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Source</th>
+<th>License and Terms of Use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Emergency declarations and mitigation policies</td>
+<td><a href="https://lawatlas.org/datasets/covid-19-emergency-declarations">LawAtlas</a></td>
+<td><a href="https://lawatlas.org/LawAtlas_Terms%20of%20Use.docx">CC BY</a></td>
+</tr>
+</tbody>
+</table>
+</details>
+</div>
+<div id="health-indicators-by-regions" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Health indicators by regions</h2>
+<p><strong>Dataset: <a href="https://storage.googleapis.com/covid19-open-data/v3/health.csv">health.csv</a></strong></p>
+<p>The health dataset mainly contains health related indicators for each region. It contains 3503 rows with 14 columns. Each row corresponds to one country.</p>
+<p><strong>Schema</strong></p>
+<table>
+<colgroup>
+<col width="15%" />
+<col width="15%" />
+<col width="42%" />
+<col width="26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>key</strong></td>
+<td><code>string</code></td>
+<td>Unique string identifying the region</td>
+<td>BN</td>
+</tr>
+<tr class="even">
+<td><strong>life_expectancy</strong></td>
+<td><code>double</code> <code>[years]</code></td>
+<td>Average years that an individual is expected to live</td>
+<td>75.722</td>
+</tr>
+<tr class="odd">
+<td><strong>smoking_prevalence</strong></td>
+<td><code>double</code> <code>[%]</code></td>
+<td>Percentage of smokers in population</td>
+<td>16.9</td>
+</tr>
+<tr class="even">
+<td><strong>diabetes_prevalence</strong></td>
+<td><code>double</code> <code>[%]</code></td>
+<td>Percentage of persons with diabetes in population</td>
+<td>13.3</td>
+</tr>
+<tr class="odd">
+<td><strong>infant_mortality_rate</strong></td>
+<td><code>double</code></td>
+<td>Infant mortality rate (per 1,000 live births)</td>
+<td>9.8</td>
+</tr>
+<tr class="even">
+<td><strong>adult_male_mortality_rate</strong></td>
+<td><code>double</code></td>
+<td>Mortality rate, adult, male (per 1,000 male adults)</td>
+<td>143.719</td>
+</tr>
+<tr class="odd">
+<td><strong>adult_female_mortality_rate</strong></td>
+<td><code>double</code></td>
+<td>Mortality rate, adult, female (per 1,000 male adults)</td>
+<td>98.803</td>
+</tr>
+<tr class="even">
+<td><strong>pollution_mortality_rate</strong></td>
+<td><code>double</code></td>
+<td>Mortality rate attributed to household and ambient air pollution, age-standardized (per 100,000 population)</td>
+<td>13.3</td>
+</tr>
+<tr class="odd">
+<td><strong>comorbidity_mortality_rate</strong></td>
+<td><code>double</code> <code>[%]</code></td>
+<td>Mortality from cardiovascular disease, cancer, diabetes or cardiorespiratory disease between exact ages 30 and 70</td>
+<td>16.6</td>
+</tr>
+<tr class="even">
+<td><strong>hospital_beds</strong></td>
+<td><code>double</code></td>
+<td>Hospital beds (per 1,000 people)</td>
+<td>2.7</td>
+</tr>
+<tr class="odd">
+<td><strong>nurses</strong></td>
+<td><code>double</code></td>
+<td>Nurses and midwives (per 1,000 people)</td>
+<td>5.8974</td>
+</tr>
+<tr class="even">
+<td><strong>physicians</strong></td>
+<td><code>double</code></td>
+<td>Physicians (per 1,000 people)</td>
+<td>1.609</td>
+</tr>
+<tr class="odd">
+<td><strong>health_expenditure</strong></td>
+<td><code>double</code> <code>[USD]</code></td>
+<td>Health expenditure per capita</td>
+<td>671.4115</td>
+</tr>
+<tr class="even">
+<td><strong>out_of_pocket_health_expenditure</strong></td>
+<td><code>double</code> <code>[USD]</code></td>
+<td>Out-of-pocket health expenditure per capita</td>
+<td>34.756348</td>
+</tr>
+</tbody>
+</table>
+<p>Note that the majority of the health indicators are only available at the country level.</p>
+<p><strong>Sources of data</strong></p>
+<details>
+<summary>
+Show data sources
+</summary>
+<table>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Source</th>
+<th>License and Terms of Use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Health</td>
+<td><a href="https://ec.europa.eu/eurostat">Eurostat</a></td>
+<td><a href="https://github.com/wcota/covid19br">CC BY</a></td>
+</tr>
+<tr class="even">
+<td>Health</td>
+<td><a href="https://wikidata.org">Wikidata</a></td>
+<td><a href="https://www.wikidata.org/wiki/Wikidata:Licensing">CC0</a></td>
+</tr>
+<tr class="odd">
+<td>Health</td>
+<td><a href="https://worldbank.org">WorldBank</a></td>
+<td><a href="https://www.worldbank.org/en/about/legal/terms-of-use-for-datasets">CC BY</a></td>
+</tr>
+</tbody>
+</table>
+</details>
+</div>
+<div id="movement-of-people" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Movement of people</h2>
+<p><a href="https://finmango.org/covid">Google’s Mobility Reports</a> are joined with our known location keys, and can be downloaded at the
+following locations:</p>
+<p><strong>Dataset: <a href="https://storage.googleapis.com/covid19-open-data/v3/mobility.csv">mobility.csv</a></strong></p>
+<p>This dataset contains various metrics related to movement of people. It has 4196096 rows with 8 columns. The dataset is time-series based and each row corresponds to a dates and the associated location. Detailed description of columns are as follows.</p>
+<p><strong>Google COVID-19 Community Mobility Reports Terms of use</strong></p>
+<p>In order to download or use the data or reports, you must agree to the Google
+<a href="https://policies.google.com/terms">Terms of Service</a>.</p>
+<p><strong>Schema</strong></p>
+<table>
+<colgroup>
+<col width="15%" />
+<col width="15%" />
+<col width="42%" />
+<col width="26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>date</strong></td>
+<td><code>string</code></td>
+<td>ISO 8601 date (YYYY-MM-DD) of the datapoint</td>
+<td>2020-03-30</td>
+</tr>
+<tr class="even">
+<td><strong>key</strong></td>
+<td><code>string</code></td>
+<td>Unique string identifying the region</td>
+<td>US_CA</td>
+</tr>
+<tr class="odd">
+<td><strong>mobility_grocery_and_pharmacy</strong></td>
+<td><code>double</code> <code>[%]</code></td>
+<td>Percentage change in visits to places like grocery markets, food warehouses, farmers markets, specialty food shops, drug stores, and pharmacies compared to baseline</td>
+<td>-15</td>
+</tr>
+<tr class="even">
+<td><strong>mobility_parks</strong></td>
+<td><code>double</code> <code>[%]</code></td>
+<td>Percentage change in visits to places like local parks, national parks, public beaches, marinas, dog parks, plazas, and public gardens compared to baseline</td>
+<td>-15</td>
+</tr>
+<tr class="odd">
+<td><strong>mobility_transit_stations</strong></td>
+<td><code>double</code> <code>[%]</code></td>
+<td>Percentage change in visits to places like public transport hubs such as subway, bus, and train stations compared to baseline</td>
+<td>-15</td>
+</tr>
+<tr class="even">
+<td><strong>mobility_retail_and_recreation</strong></td>
+<td><code>double</code> <code>[%]</code></td>
+<td>Percentage change in visits to restaurants, cafes, shopping centers, theme parks, museums, libraries, and movie theaters compared to baseline</td>
+<td>-15</td>
+</tr>
+<tr class="odd">
+<td><strong>mobility_residential</strong></td>
+<td><code>double</code> <code>[%]</code></td>
+<td>Percentage change in visits to places of residence compared to baseline</td>
+<td>-15</td>
+</tr>
+<tr class="even">
+<td><strong>mobility_workplaces</strong></td>
+<td><code>double</code> <code>[%]</code></td>
+<td>Percentage change in visits to places of work compared to baseline</td>
+<td>-15</td>
+</tr>
+</tbody>
+</table>
+<p>Changes for each day are compared to a baseline value for that day of the week:</p>
+<ul>
+<li>The baseline is the median value, for the corresponding day of the week, during the 5-week period
+Jan 3–Feb 6, 2020.</li>
+<li>The datasets show trends over several months with the most recent data representing approximately
+2-3 days ago—this is how long it takes to produce the datasets.</li>
+</ul>
+<p><strong>Sources of data</strong></p>
+<details>
+<summary>
+Show data sources
+</summary>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="17%" />
+<col width="70%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Source</th>
+<th>License and Terms of Use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Google Mobility data</td>
+<td><a href="https://www.google.com/covid19/mobility/" class="uri">https://www.google.com/covid19/mobility/</a></td>
+<td><a href="https://policies.google.com/terms">Google Terms of Service</a></td>
+</tr>
+</tbody>
+</table>
+</details>
+</div>
+<div id="population-vaccination-records" class="section level2" number="2.6">
+<h2><span class="header-section-number">2.6</span> Population vaccination records</h2>
+<p><strong>Dataset: <a href="https://storage.googleapis.com/covid19-open-data/v3/vaccinations.csv">vaccinations.csv</a></strong></p>
+<p>This dataset contains information related to deployment and administration of COVID-19 vaccines. It has a total of 1377366 rows with 32 columns. The dataset is time-series and each row corresponds to a date with the associated location. Detailed description for columns are as followed.</p>
+<p><strong>Schema</strong></p>
+<table>
+<colgroup>
+<col width="15%" />
+<col width="15%" />
+<col width="42%" />
+<col width="26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>date</strong></td>
+<td><code>string</code></td>
+<td>ISO 8601 date (YYYY-MM-DD) of the datapoint</td>
+<td>2021-02-07</td>
+</tr>
+<tr class="even">
+<td><strong>key</strong></td>
+<td><code>string</code></td>
+<td>Unique string identifying the region</td>
+<td>ID</td>
+</tr>
+<tr class="odd">
+<td><strong>new_persons_vaccinated*</strong></td>
+<td><code>integer</code></td>
+<td>Count of new persons which have received one or more doses</td>
+<td>7222</td>
+</tr>
+<tr class="even">
+<td><strong>cumulative_persons_vaccinated**</strong></td>
+<td><code>integer</code></td>
+<td>Cumulative sum of persons which have received one or more doses</td>
+<td>784318</td>
+</tr>
+<tr class="odd">
+<td><strong>new_persons_fully_vaccinated*</strong></td>
+<td><code>integer</code></td>
+<td>Count of new persons which have received all doses required for maximum immunity</td>
+<td>1924</td>
+</tr>
+<tr class="even">
+<td><strong>cumulative_persons_fully_vaccinated**</strong></td>
+<td><code>integer</code></td>
+<td>Cumulative sum of persons which have received all doses required for maximum immunity</td>
+<td>139131</td>
+</tr>
+<tr class="odd">
+<td><strong>new_vaccine_doses_administered*</strong></td>
+<td><code>integer</code></td>
+<td>Count of new vaccine doses administered to persons</td>
+<td>9146</td>
+</tr>
+<tr class="even">
+<td><strong>cumulative_vaccine_doses_administered**</strong></td>
+<td><code>integer</code></td>
+<td>Cumulative sum of vaccine doses administered to persons</td>
+<td>923449</td>
+</tr>
+<tr class="odd">
+<td>**<code>${statistic}</code>_<code>${vaccine}</code>**</td>
+<td><code>integer</code></td>
+<td>Statistic value corresponding to a specific vaccine such as <code>new_persons_vaccinated_moderna</code></td>
+<td>1035</td>
+</tr>
+</tbody>
+</table>
+<p>*Values can be negative, typically indicating a correction or an adjustment in the way they were
+measured.</p>
+<p>**Cumulative count will not always amount to the sum of daily counts, because many authorities make
+changes to criteria for counting cases, but not always make adjustments to the data. There is also
+potential missing data. All of that makes the cumulative counts <em>drift</em> away from the sum of all daily
+counts over time, which is why the cumulative values, if reported, are kept in a separate column.</p>
+<p><strong>Sources of data</strong></p>
+<details>
+<summary>
+Show data sources
+</summary>
+<table>
+<colgroup>
+<col width="10%" />
+<col width="15%" />
+<col width="61%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Source</th>
+<th>License and Terms of Use</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Country-level data</td>
+<td><a href="https://ourworldindata.org">Our World in Data</a></td>
+<td><a href="https://ourworldindata.org/how-to-use-our-world-in-data#how-is-our-work-copyrighted">CC BY</a></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Argentina</td>
+<td><a href="https://datos.gob.ar/dataset/salud-vacunas-contra-covid-19-dosis-aplicadas-republica-argentina---registro-desagregado">Datos Argentina</a></td>
+<td><a href="https://datos.gob.ar/acerca/seccion/marco-legal">Public domain</a></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Australia</td>
+<td><a href="https://covidlive.com.au/">COVID LIVE</a></td>
+<td><a href="https://creativecommons.org/licenses/by/4.0/">CC BY</a></td>
+<td>Country level data is not the sum of the states/territories as there is a portion of vaccinations managed by the Federal government that is delivered directly to aged and disability care and not counted as part of the states/territories.<br/><br/>As of 2021-03-14, only doses administered are reported for country-level data but NSW, VIC and WA continue to report the count of persons fully and partially vaccinated.</td>
+</tr>
+<tr class="even">
+<td>Austria</td>
+<td><a href="https://www.data.gv.at/covid-19/">Open Data Österreich</a></td>
+<td><a href="https://www.data.gv.at/covid-19/">CC BY</a></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Belgium</td>
+<td><a href="https://covid-vaccinatie.be/en">Covid Vaccinations Belgium</a></td>
+<td><a href="https://covid-vaccinatie.be/api">CC BY</a></td>
+<td>Regional data only available for Brussels, since the regions reported by the data source do not match our indexed subregions</td>
+</tr>
+<tr class="even">
+<td>Bolivia</td>
+<td><a href="https://www.minsalud.gob.bo/">Ministry of Health</a> (via <a href="https://finmango.org/covid">FinMango</a>)</td>
+<td><a href="https://finmango.org/covid">CC BY</a></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Brazil</td>
+<td>coronavirusbra1.github.io via <span class="citation">[@wcota/covid19br]</span><a href="https://github.com/wcota/covid19br">2</a></td>
+<td><a href="https://github.com/wcota/covid19br/blob/6e994b0fef2056e31364bfa2e69c5d61060f0ccf/DESCRIPTION.en.md#by-federative-units-cases-brazil-totalcsv-and-cases-brazil-statescsv">CC BY</a></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Brazil</td>
+<td><a href="https://coronavirus.saude.gov.br/">Brazil Ministério da Saúde</a></td>
+<td><a href="http://www.opendefinition.org/licenses/cc-by">Creative Commons Atribuição</a></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Bulgaria</td>
+<td><a href="https://coronavirus.bg/bg/statistika">Ministry of Health</a> (via <a href="https://finmango.org/covid">FinMango</a>)</td>
+<td><a href="https://finmango.org/covid">CC BY</a></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Canada</td>
+<td><a href="https://www.canada.ca/en/public-health">Department of Health Canada</a></td>
+<td><a href="https://www.canada.ca/en/transparency/terms.html">Attribution required</a></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Colombia</td>
+<td><a href="https://www.minsalud.gov.co/salud/publica/Vacunacion/Paginas/Vacunacion-covid-19.aspx">Ministry of Health</a> (via <a href="https://finmango.org/covid">FinMango</a>)</td>
+<td><a href="https://finmango.org/covid">CC BY</a></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Czech Republic</td>
+<td><a href="https://onemocneni-aktualne.mzcr.cz/covid-19">Ministry of Health of the Czech Republic</a></td>
+<td><a href="https://www.jmir.org/2020/5/e19367">Open Data</a></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>France</td>
+<td><a href="https://www.data.gouv.fr/fr/datasets/donnees-relatives-aux-personnes-vaccinees-contre-la-covid-19-1/">data.gouv.fr</a></td>
+<td><a href="https://www.etalab.gouv.fr/licence-ouverte-open-licence">Open License 2.0</a></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Germany</td>
+<td><a href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Daten/Impfquoten-Tab.html;jsessionid=7CD5258893F719D9991A9BAEC2B971F0.internet081">Robert Koch Institute</a> (via <a href="https://finmango.org/covid">FinMango</a>)</td>
+<td><a href="https://www.govdata.de/dl-de/by-2-0">Attribution Required</a></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>India</td>
+<td><a href="https://github.com/covid19india/api">COVID19-India</a></td>
+<td><a href="https://github.com/covid19india/api/blob/master/LICENSE_DATA">CC BY</a></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Israel</td>
+<td><a href="https://data.gov.il/dataset/covid-19">Israel Government Data Portal</a></td>
+<td><a href="https://data.gov.il/terms">Attribution Required</a></td>
+<td>Admin level 2 regions are provided by the source and are aggregated to admin level 1. The total vaccination dose numbers provided by the source for admin level 2 do not match the country-wide total. This also impacts the aggregated level 1 totals.</td>
+</tr>
+<tr class="odd">
+<td>Italy</td>
+<td><a href="https://github.com/italia/covid19-opendata-vaccini">Commissario straordinario per l’emergenza Covid-19</a></td>
+<td><a href="https://github.com/italia/covid19-opendata-vaccini/blob/master/LICENSE.md">CC BY</a></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Spain</td>
+<td><a href="https://www.mscbs.gob.es/profesionales/saludPublica/ccayes/alertasActual/nCov/vacunaCovid19.htm">Ministry of Health</a></td>
+<td><a href="https://www.mscbs.gob.es/avisoLegal/home.html">Attribution required</a></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Slovenia</td>
+<td><a href="https://www.nijz.si/sl/cepljenje-proti-covid-19-za-strokovno-javnost">Ministry of Health</a> (via <a href="https://finmango.org/covid">FinMango</a>)</td>
+<td><a href="https://finmango.org/covid">CC BY</a></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Slovakia</td>
+<td><a href="https://korona.gov.sk">https://korona.gov.sk</a>, operated by Ministry of Investments, Regional Development and Informatization of the Slovak Republic]</td>
+<td><a href="https://www.mirri.gov.sk/en/ministerstvo/legal-information/">Attribution required</a></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Sweden</td>
+<td><a href="https://www.folkhalsomyndigheten.se/smittskydd-beredskap/utbrott/aktuella-utbrott/covid-19/vaccination-mot-covid-19/statistik/statistik-over-registrerade-vaccinationer-covid-19/">Public Health Agency of Sweden</a></td>
+<td>Fair Use</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Switzerland</td>
+<td><a href="https://www.covid19.admin.ch/en/epidemiologic/vacc-doses?detGeo=CH">Federal Office of Public Health</a></td>
+<td><a href="https://www.admin.ch/gov/en/start/terms-and-conditions.html">Fair Use</a></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>United Kingdom (nations)</td>
+<td><a href="https://coronavirus.data.gov.uk/details/vaccinations">NHS</a></td>
+<td><a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">OGL</a></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>United Kingdom (England)</td>
+<td><a href="https://www.england.nhs.uk/statistics/statistical-work-areas/covid-19-vaccinations/">NHS</a> (via <a href="https://finmango.org/covid">FinMango</a>)</td>
+<td><a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">OGL</a></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>United States</td>
+<td><a href="https://covid.cdc.gov/covid-data-tracker/#vaccinations">CDC</a></td>
+<td><a href="https://www.cdc.gov/other/agencymaterials.html">Public Domain</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</details>
+</div>
+<div id="index-reference-table" class="section level2" number="2.7">
+<h2><span class="header-section-number">2.7</span> Index reference table</h2>
+<p><strong>Dataset: <a href="https://storage.googleapis.com/covid19-open-data/v3/index.csv">index.csv</a></strong></p>
+<p>This data table contains keys, codes and names for each region and country. It also contains the aggregate level (0: country, 1: state, etc.) With 22958 rows and 15 columns, this set is especially helpful in selecting and filtering the previous datasets in the data cleaning process.</p>
+<p><strong>Schema</strong></p>
+<table>
+<colgroup>
+<col width="15%" />
+<col width="15%" />
+<col width="42%" />
+<col width="26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>key</strong></td>
+<td><code>string</code></td>
+<td>Unique string identifying the region</td>
+<td>US_CA_06001</td>
+</tr>
+<tr class="even">
+<td><strong>place_id</strong></td>
+<td><code>string</code></td>
+<td>A textual identifier that uniquely identifies a place in the Google Places database and on Google Maps (<a href="https://developers.google.com/places/web-service/place-id">details</a>)</td>
+<td>ChIJd_Y0eVIvkIARuQyDN0F1LBA</td>
+</tr>
+<tr class="odd">
+<td><strong>wikidata</strong></td>
+<td><code>string</code></td>
+<td>Wikidata ID corresponding to this key</td>
+<td>Q107146</td>
+</tr>
+<tr class="even">
+<td><strong>datacommons</strong></td>
+<td><code>string</code></td>
+<td>DataCommons ID corresponding to this key</td>
+<td>geoId/06001</td>
+</tr>
+<tr class="odd">
+<td><strong>country_code</strong></td>
+<td><code>string</code></td>
+<td>ISO 3166-1 alphanumeric 2-letter code of the country</td>
+<td>US</td>
+</tr>
+<tr class="even">
+<td><strong>country_name</strong></td>
+<td><code>string</code></td>
+<td>American English name of the country, subject to change</td>
+<td>United States of America</td>
+</tr>
+<tr class="odd">
+<td><strong>subregion1_code</strong></td>
+<td><code>string</code></td>
+<td>(Optional) ISO 3166-2 or NUTS 2/3 code of the subregion</td>
+<td>CA</td>
+</tr>
+<tr class="even">
+<td><strong>subregion1_name</strong></td>
+<td><code>string</code></td>
+<td>(Optional) American English name of the subregion, subject to change</td>
+<td>California</td>
+</tr>
+<tr class="odd">
+<td><strong>subregion2_code</strong></td>
+<td><code>string</code></td>
+<td>(Optional) FIPS code of the county (or local equivalent)</td>
+<td>06001</td>
+</tr>
+<tr class="even">
+<td><strong>subregion2_name</strong></td>
+<td><code>string</code></td>
+<td>(Optional) American English name of the county (or local equivalent), subject to change</td>
+<td>Alameda County</td>
+</tr>
+<tr class="odd">
+<td><strong>3166-1-alpha-2</strong></td>
+<td><code>string</code></td>
+<td>ISO 3166-1 alphanumeric 2-letter code of the country</td>
+<td>US</td>
+</tr>
+<tr class="even">
+<td><strong>3166-1-alpha-3</strong></td>
+<td><code>string</code></td>
+<td>ISO 3166-1 alphanumeric 3-letter code of the country</td>
+<td>USA</td>
+</tr>
+<tr class="odd">
+<td><strong>aggregation_level</strong></td>
+<td><code>integer</code> <code>[0-2]</code></td>
+<td>Level at which data is aggregated, i.e. country, state/province or county level</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-transformation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/Cosmos0603/Covid-19_Visualization/edit/main/02-data.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/Cosmos0603/Covid-19_Visualization/blob/main/02-data.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

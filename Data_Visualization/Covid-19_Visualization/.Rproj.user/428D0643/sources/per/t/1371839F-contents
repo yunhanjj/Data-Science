@@ -1,0 +1,400 @@
+# Results
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+library(here)
+library(readr)
+library(dplyr)
+library(ggrepel)
+library(agridat)
+library(grid)
+library(gridExtra)
+library(boot)
+library(tidyr)
+library(palmerpenguins)
+library(ggh4x)
+library(ggalluvial)
+library(Lock5withR)
+library(vcd)
+library(GGally)
+library(d3r)
+```
+
+## Global Data Analysis
+
+Our analysis begins with our global data by countries. We would like to investigate key characteristics for each country, and look at if there exists any correlation to the impact of COVID on the country or if they reflects the effectiveness of controlling the spread of COVID within the country.
+
+### Country selection based on Economics and Health Indicators
+
+In this section, we want to look at key economics and health indicators in order to select countries that are representative to our analysis on a case-by-case basis. We first begin with the relationship between economic indicators such as GDP (domestic production capability by country) and GDP per capita (domestic production capability normalized by the population).
+
+```{r, message=FALSE, warning=FALSE}
+econ_df <- readr::read_csv(here::here("./data/econ_country.csv"))
+```
+
+```{r, message=FALSE, warning=FALSE}
+econ_df['gdp_usd'] <- econ_df['gdp_usd']/1000000000
+econ_df['gdp_per_capita_usd'] <- econ_df['gdp_per_capita_usd']/1000
+```
+
+```{r, message=FALSE, warning=FALSE}
+mean_gdp_per_capita <- mean(econ_df$gdp_per_capita_usd)
+mean_gdp <- mean(econ_df$gdp_usd)
+```
+
+```{r, message=FALSE, warning=FALSE}
+econ_df$colour = 'normal'
+econ_df$colour[econ_df$gdp_usd>=2500 & econ_df$gdp_per_capita_usd<=mean_gdp_per_capita] = 'high gdp low per capita'
+econ_df$colour[econ_df$gdp_usd>=2500 & econ_df$gdp_per_capita_usd>=mean_gdp_per_capita] = 'high gdp high per capita'
+econ_df$colour[econ_df$gdp_usd<=mean_gdp & econ_df$gdp_per_capita_usd>=100] = 'low gdp high per capita'
+```
+
+
+```{r, message=FALSE, warning=FALSE}
+ggplot(econ_df, aes(x = gdp_per_capita_usd, 
+                                   y = gdp_usd,
+                                   label = location_key))+
+  geom_hline(yintercept = mean_gdp, size = 1.4, color = "gray80")+
+  geom_vline(xintercept = mean_gdp_per_capita, size = 1.4, color = "gray80")+
+  geom_point(aes(colour = factor(colour))) +
+  geom_text_repel(size = 2) + 
+  scale_color_manual(values=c("blue", "orange", "green", "black")) +
+  labs(x = "GDP per capita (thousands)", 
+       y = "GDP (billions)", 
+       title = "Country Economics Indicators: GDP vs. GDP per capita", colour = "Category") + 
+ theme_bw() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.subtitle = element_text(face = "bold", color = "grey35"),
+        plot.caption = element_text(color = "grey68"),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.position="bottom",
+        legend.title = element_text(face="bold"))
+```
+
+From the scatter plot of GDP vs. GDP per capita, we seperated the graph by two bolded grey lines, which are the mean GDP and mean GDP per capita values across all countries in our dataset. Furthermore, we identified four distinct groups, as indicated in the legend at the bottom of the graph. Countries colored in black are normal or below average countries in both measurements. Countries colored in orange have high GDP (total domestic production), but low GDP per capita (averaged by population). Representative examples include India and China. Countries colored in green have low GDP (total domestic production), but high GDP per capita (averaged by population). Representative examples include Monaco, Liechtenstein and Luxembourg. Countries colored in blue have both high GDP (total domestic production), and high GDP per capita (averaged by population). Representative examples include the US, Japan, Germany, and the UK. We will investigate the representative examples from each category in our further analysis.
+
+The next graph looks at the relationship for countries between GDP per capita and health-related indicator such as life expectancy. We chose these two indicators in order to combine the effects from economic and health. Furthermore, we chose GDP per capita and life expectancy since these two variables are both calculated in the per person basis, making the comparison plausible and meaningful.
+
+```{r, message=FALSE, warning=FALSE}
+health_df <- readr::read_csv(here::here("./data/health_country.csv"))
+```
+
+```{r, message=FALSE, warning=FALSE}
+# merge df with economic and health indicators
+merge_econ_health_df <- merge(x = econ_df, y = health_df, by = "location_key")
+```
+
+```{r, message=FALSE, warning=FALSE}
+# drop na values in life_expectancy
+merge_econ_health_df <- subset(merge_econ_health_df, (!is.na(merge_econ_health_df[,5])))
+```
+
+```{r, message=FALSE, warning=FALSE}
+merge_econ_health_df$merge_color = 'normal'
+merge_econ_health_df$merge_color[merge_econ_health_df$life_expectancy>=80 & merge_econ_health_df$gdp_per_capita_usd>=75] = 'High index in both'
+merge_econ_health_df$merge_color[merge_econ_health_df$life_expectancy<=60 & merge_econ_health_df$gdp_per_capita_usd<=mean_gdp_per_capita] = 'Low index in both'
+```
+
+```{r, message=FALSE, warning=FALSE}
+ggplot(merge_econ_health_df, aes(x = gdp_per_capita_usd, 
+                                   y = life_expectancy,
+                                   label = location_key))+
+  geom_hline(yintercept = mean(merge_econ_health_df$life_expectancy), size = 1.4, color = "gray80")+
+  geom_vline(xintercept = mean(merge_econ_health_df$gdp_per_capita_usd), size = 1.4, color = "gray80")+
+  geom_point(aes(colour = factor(merge_color))) +
+  geom_text_repel(size = 2) + 
+  scale_color_manual(values=c("blue", "red", "black")) + 
+  labs(x = "GDP per capita (thousands)", 
+       y = "Life Expectancy (age)", 
+       title = "Country Economics and Helath Indicators: Life Expectancy vs. GDP per capita", colour = "Category") + 
+ theme_bw() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.subtitle = element_text(face = "bold", color = "grey35"),
+        plot.caption = element_text(color = "grey68"),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.position="bottom",
+        legend.title = element_text(face="bold"))
+```
+
+From the scatter plot above, the graph is divided by two bolded grey lines indicating the average life expectancy and average GDP per capita across all countries in the dataset. We labelled two distinct categories which have high index in both measurements and low index in both measurements. Representative countries in the high index group include Liechtenstein, Luxembourg, Ireland, China, and Macao. Representative countries in the low index group include Central African Republic, Lesotho, and Chad. We noticed that most countries with high indices are from Europe or East Asia, whereas most countries in the low index group are from Africa. Notice that we dropped the countries with no records of life expectancy recorded, so there could be some missing countries which require further investigation in the future.
+
+### Comparison of cumulative confirmed and deceased COVID cases for representative countries
+
+Now, let's look further into the representative countries filtered by the indicators we selected above. First, let's look at the cumulative confirmed and deceased COVID cases for one representative country from each of the three distinctly colored (non-black) groups from GDP vs. GDP per capita scatter plot. The countries we chose are CN, IN (from high gdp, low per capita), US, JP (from high gdp, high per capita), and MC, LI (from low gdp, high per capita). Each time series record starts from 2020-01-01 and goes until the current date.
+
+```{r, message=FALSE, warning=FALSE}
+epi_country_df <- readr::read_csv(here::here("./data/epi_country.csv"))
+```
+
+```{r, message=FALSE, warning=FALSE}
+vec_econ <- c('CN', "IN", 'US', "JP", 'MC', "LI")
+vec_merge <- c("LS", "CF", "LU", "LI")
+```
+
+```{r, message=FALSE, warning=FALSE}
+epi_econ_df <- epi_country_df[epi_country_df$location_key %in% vec_econ, c(1, 2, 6, 7)]
+epi_merge_df <- epi_country_df[epi_country_df$location_key %in% vec_merge, c(1, 2, 6, 7)]
+```
+
+```{r, message=FALSE, warning=FALSE}
+ggplot(epi_econ_df, aes(x = date, y = cumulative_confirmed, color = location_key)) +
+  geom_line() +
+  labs(x = "Date", 
+       y = "Cumulative confirmed cases", 
+       title = "Cumulative confirmed cases for countries based on economics indicators") +
+  theme_bw() +
+  theme(plot.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.position="bottom",
+        legend.title = element_text(face="bold"))
+```
+
+From the cumulative confirmed plot above, we see that the countries with the most rapid growth and most cases are the USA and India. The USA is among the group of high GDP and high GDP per capita, whereas India is among the group of high GDP and low GDP per capita. Taking population into account, we expected that China would have similar records as these two countries, which is not verified with this graph. Therefore, we expect that government policy might play a more important role than economic conditions alone.
+
+```{r, message=FALSE, warning=FALSE}
+ggplot(epi_econ_df, aes(x = date, y = cumulative_deceased, color = location_key)) +
+  geom_line()+
+  labs(x = "Date", 
+       y = "Cumulative deceased cases", 
+       title = "Cumulative deceased cases for countries based on economics indicators") +
+  theme_bw() +
+  theme(plot.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.position="bottom",
+        legend.title = element_text(face="bold"))
+```
+
+From the cumulative deceased plot above, the result is quite similar to the cumulative confirmed plot. The USA and India have the most cumulative deceased cases from 2020-01-01 till this current date. This graph also suggests that economic conditions do not indicate in the effectiveness of controlling the spread of COVID-19.
+
+
+In this part, we will look at countries from each of the 2 distinct groups in the economics and health indicators scatter plot. Specifically, we selected LS, CF (from the group of low index in both GDP per capita and life expectancy), and LU, LI (from the group of high index in both GDP per capita and life expectancy).
+
+```{r, message=FALSE, warning=FALSE}
+ggplot(epi_merge_df, aes(x = date, y = cumulative_confirmed, color = location_key)) +
+  geom_line()+
+  labs(x = "Date", 
+       y = "Cumulative confirmed cases", 
+       title = "Cumulative confirmed cases for countries based on econ & health indicators") +
+  theme_bw() +
+  theme(plot.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.position="bottom",
+        legend.title = element_text(face="bold"))
+```
+
+From the cumulative confirmed plot above, we see that Luxembourg has significantly more cases than the other three, followed by Liechtenstein. These two countries are all from the group with high index in both indicators. Their population are also less than Central African Republic and Lesotho by at least 10 times. This insight is surprising in that the countries with high econ and health conditions, as measured by the indices, are actually outperforming in the number of confirmed cases. Let's look further into the deceased number for a comparison.
+
+```{r, message=FALSE, warning=FALSE}
+ggplot(epi_merge_df, aes(x = date, y = cumulative_deceased, color = location_key)) +
+  geom_line()+
+  labs(x = "Date", 
+       y = "Cumulative deceased cases", 
+       title = "Cumulative deceased cases for countries based on econ & health indicators") +
+  theme_bw() +
+  theme(plot.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+        legend.position="bottom",
+        legend.title = element_text(face="bold"))
+```
+
+From the cumulative deceased plot above, we see that the ranking, in terms of the four countries' cumulative deceased numbers, have not changed. However, the difference in magnitude of the cumulative deceased between Luxembourg and Liechtenstein decrased compared to the confirmed plot above. This could indicate that among the confirmed cases, there are fewer deceased cases in Luxembourg compared to Liechtenstein, which in a way reflected the superior medical treatments from Luxembourg.
+
+### Relationship between health indicators and COVID mortality rate
+
+As seen from the previous sections, we compared representative countries filtered by their economic or economic & health conditions. As a result, we notice that health conditions, from the health indicators, provides more insight into the country's responses to the COVID. More specifically, we noticed that a country's power of medical treatment can be reflected by the proportion of cumulative deceased over the cumulative confirmed cases. Here we will denote it by the COVID mortality rate.
+
+Let's look at the distributions of key health indicators, and COVID mortality rate (cumulative deceased / cumulative confirmed) acorss all countries at the most recent date (e.g. 2021-12-11).
+
+```{r, message=FALSE, warning=FALSE}
+ggplot(health_df, aes(x=life_expectancy), alpha=0.8) + 
+  geom_boxplot()+ 
+  stat_boxplot(geom ='errorbar')+
+  ggtitle("Distribution on life expectancy acorss all countries") +
+  labs(x = "Life expectancy in age") +
+  theme_bw() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.subtitle = element_text(face = "bold", color = "grey35"),
+        plot.caption = element_text(color = "grey68"),
+        legend.position="bottom",
+        axis.text.y = element_blank())
+```
+
+From the above boxplot, we get the distribution of life expectancy acorss all countries in our dataset. Within the box, the interquartile range (IQR) suggests that the majority (middle 50%) of people live until their late 60s to their late 70s, with the entire range from early 50s till late 80s. This plot gives us a general idea of the distribution and porportion of life expectancy.
+
+```{r, message=FALSE, warning=FALSE}
+epi_country_max_df <- readr::read_csv(here::here("./data/epi_country_max.csv"))
+epi_country_max_df$mortality_rate <- epi_country_max_df$cumulative_deceased / epi_country_max_df$cumulative_confirmed * 100
+```
+
+
+```{r, message=FALSE, warning=FALSE}
+ggplot(epi_country_max_df, aes(x=mortality_rate), alpha=0.8) + 
+  geom_boxplot()+ 
+  stat_boxplot(geom ='errorbar')+
+  ggtitle("Distribution on mortality rates acorss all countries at most recent times") +
+  labs(x = "Mortality rate in percentage") +
+  theme_bw() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.subtitle = element_text(face = "bold", color = "grey35"),
+        plot.caption = element_text(color = "grey68"),
+        legend.position="bottom",
+        axis.text.y = element_blank())
+```
+
+```{r, message=FALSE, warning=FALSE}
+epi_country_max_df%>%filter(mortality_rate > 15)
+```
+As in the previous section, we noticed that the proportion of cumulative deceased to the cumulative confirmed (denoted as mortality rate) could give us an idea of the treatment for the country on COVID. Therefore, we use the boxplot on the mortality rate (in percentages) to further investigate the distribution. We noticed that the majority (almost 100%) of the countries have mortality rates below 5%, with several exceptions shown as outlier dots in the graph. Interestingly, there is one country whose mortality rate is close to 20%, which is huge given the distribution of all the other countries. The country is Yemen, shown above. By looking at the distribution, we were able to make some important discoveries.
+
+Quantile values for mortality rates:
+```{r, message=FALSE, warning=FALSE}
+# df with location and its mortality rates (not null)
+epi_country_mortality_df <- epi_country_max_df[,c(1,3,6)]
+epi_country_mortality_df <- epi_country_mortality_df[(!is.na(epi_country_mortality_df[,3])), ]
+quantile(epi_country_mortality_df$mortality_rate)
+```
+
+Quantile values for life expectancy:
+```{r, message=FALSE, warning=FALSE}
+# df with location and its life expectancy (not null)
+health_life_df <- health_df[(!is.na(health_df[,3])),c(1,3)]
+quantile(health_life_df$life_expectancy)
+```
+
+
+```{r, message=FALSE, warning=FALSE}
+merge_mortality_life_df <- merge(x = epi_country_mortality_df, y = health_life_df, by = "location_key")
+```
+
+```{r, message=FALSE, warning=FALSE}
+merge_mortality_life_df$mortality_rank[merge_mortality_life_df$mortality_rate >= 0 &merge_mortality_life_df$mortality_rate <=0.8657044] = "Low"
+merge_mortality_life_df$mortality_rank[merge_mortality_life_df$mortality_rate >= 0.8657044 &merge_mortality_life_df$mortality_rate <=2.3202494] = "Medium"
+merge_mortality_life_df$mortality_rank[merge_mortality_life_df$mortality_rate >= 2.3202494 &merge_mortality_life_df$mortality_rate <=19.4784513] = "Top"
+
+merge_mortality_life_df$life_rank[merge_mortality_life_df$life_expectancy >= 52.80500 &merge_mortality_life_df$life_expectancy <=67.66500] = "Low"
+merge_mortality_life_df$life_rank[merge_mortality_life_df$life_expectancy >= 67.66500 &merge_mortality_life_df$life_expectancy <=78.29268] = "Medium"
+merge_mortality_life_df$life_rank[merge_mortality_life_df$life_expectancy >= 78.29268 &merge_mortality_life_df$life_expectancy <=85.41707] = "Top"
+```
+
+Following the boxplots, we computed the quantile values for each distribution, shown explicitly in values for the corresponding boundaries in the boxplots. Now, we can group each variable (mortality rate and life expectancy) into three distinct groups: Low - the value is within the lower 25% in the distribution; Medium - the value is within the middle 50% in the distribution; Top - the value is within the top 25% in the distribution. We can then look at the relationship between groups within each variable using the mosaic plot.
+
+```{r}
+mosaic(life_rank ~ mortality_rank, direction = c("v", "h"), merge_mortality_life_df,
+       highlighting_fill = c("grey80", "cornflowerblue"), main="Mortality rate ranks vs. Life expectancy ranks",
+       sub = "Low: lower 25%, Medium: middle 50%, High: top 25%")
+```
+
+From the mosaic plot, we can see several interesting discoveries. Across the countries with non-null mortality rates and life expectancy, the group of countries with medium life expectancy consists of the majority portion of all groups in the mortality rate variable, suggesting their mortality rates have a wide range of variations. The countries in the group with high life expectancy has the least amoung of proportion in the group with high mortality rates. This makes sense intuitively as countries with high life expectancy typically is associated with good medical conditions as well as living conditions.
+
+By looking at two economic indicators (GDP and GDP per capita) and one health indicator (life expectancy) both across the entire dataset and also into specific representative countries, we were able to investigate the overall distributions in one or more variables of interests, time-series trends between selective individuals within groups, as well as relationships between groups for multiple variables. We notice that economic conditions have a less noticable association to COVID analysis compared to health indicators. In this project, we only touched upon life expectancy. However, if you would want to look more into different health indicators provided, you can choose your own by looking at our interactive component section, which we provided a visual scatterplot for different health indicators to assist future analysis.[Link to the interactive scatterplots](https://vizhub.com/Cosmos0603/3324a912c58d4193a05045b96692db3d)
+
+## US State Level Analysis
+
+After the global analysis, we would like to focus more on the U.S. and perform state-level analysis on our data. We are interested in the differences in government reacting time and mobility change percentage between democratic states (blue states) and republican states (red states) as well as the popularity of each type of vaccines. We categorized Democratic and Republican states based on [this link](https://www.gkgigs.com/list-of-blue-states-and-red-states/).
+
+### Differences in government reacting time between blue states and red states.
+
+We use the number of days it takes for the state government to publish first mitigation policy after the first Covid case is confirmed in the state as a measurement of how fast the government reacts to the pandemic. We extract the date that the first mitigation policy is published (`First Mitigation Date`) and the date that the first Covid case is confirmed (`First Case Date`) for each state from our dataset and subtract them to get the variable that indicates the reacting time of the government of each state. We then draw pair barplot to exhibit the difference between the blue states and the red states.
+
+```{r}
+first_mitigate <- readr::read_csv(here::here("./data/first_mitigate_date.csv"))
+epi_state <- readr::read_csv(here::here("./data/epi_us_state.csv"))
+first_case = epi_state %>% filter(cumulative_confirmed>0) %>% group_by(location_key) %>% summarise(first_case=min(date))
+state_key_map <- readr::read_csv(here::here("./data/state_key_map.csv"))
+first_diff = first_mitigate %>% left_join(first_case, by="location_key") %>% left_join(state_key_map, by=c("location_key", "state_name")) %>% mutate(first_diff = first_mitigate_date-first_case)
+first_diff_blue = first_diff %>% filter(state_type=="blue") %>% arrange(first_diff) %>% top_n(10)
+first_diff_red = first_diff %>% filter(state_type=="red") %>% arrange(first_diff) %>% top_n(10)
+
+barplot_blue = ggplot(first_diff_blue, aes(x=reorder(state_name, first_diff), y=first_diff)) +
+    geom_bar(stat="identity", fill="dodgerblue3") +
+    geom_text(aes(label=first_diff), hjust=1.2, color="white", size=3.5) +
+    coord_flip() +
+    ggtitle("Top 10 Blue States") +
+    labs(y = "First Mitigation Date - First Case Date", x = "State",caption = " ") +
+    theme_minimal() +
+    theme(plot.title = element_text(size = 11,face = "bold", color = "grey35"),
+        plot.caption = element_text(color = "grey68"))
+
+barplot_red = ggplot(first_diff_red, aes(x=reorder(state_name, first_diff), y=first_diff)) +
+    geom_bar(stat="identity", fill="firebrick2") +
+    geom_text(aes(label=first_diff), hjust=1.2, color="white", size=3.5) +
+    coord_flip() +
+    ggtitle("Top 10 Red States") +
+    labs(y = "First Mitigation Date - First Case Date", x = "State",caption = " ") +
+    theme_minimal() +
+    theme(plot.title = element_text(size = 11,face = "bold", color = "grey35"),
+        plot.caption = element_text(color = "grey68"))
+
+grid.arrange(barplot_blue, barplot_red, ncol=2, nrow=1,
+     top = textGrob("How long after first confirm case that the state start the mitigation?",gp=gpar(fontsize=13, fontface = "bold")))
+
+```
+
+The above plot is consist of two parts, a horizontal bar chart for the ten blue states that reacts the slowest and another bar chart for the ten red states that reacts the slowest. The length of bars indicate how many days after the first case of Covid-19 is confirmed in the state that the government publish the first mitigation policy. By making a pair bar chart of blue states and red states side by side, it is clear that blue states react slower than red states in general. To dive deeper into the distribution of the reacting time of blue states and red states, a pair boxplot is presented down below. 
+
+```{r}
+first_diff_blue_red = first_diff %>% filter(state_type=="blue"|state_type=="red")
+ggplot(first_diff_blue_red, aes(x=first_diff, fill = state_type), alpha=0.8)+
+  geom_boxplot()+
+  stat_boxplot(geom ='errorbar') +
+  scale_fill_manual(name = "State type", values = c("dodgerblue3", "firebrick2"), 
+                    labels = c("Blue States","Red States")) +
+  ggtitle("How long it takes for the government to react?")+
+  labs(y = "State type", x = "Date of mitigation first published - Date of first confirmed case") +
+  theme_bw() +
+  theme(plot.title = element_text(face = "bold"),
+        plot.subtitle = element_text(face = "bold", color = "grey35"),
+        plot.caption = element_text(color = "grey68"),
+        legend.position="bottom",
+        axis.text.y = element_blank())
+```
+
+The pair boxplot provides us a glance into the distribution of the reacting time of blue states and red states. The red boxplot corresponds to the red states and the blue boxplot to the blue states. This plot further confirms our findings that blue states react slower than the red states in general. 
+
+### Differences in average percentage change of visits to retial and recreation between blue states and red states. 
+
+```{r}
+mobility_state <- readr::read_csv(here::here("./data/mobility_us_state.csv"))
+avg_retail_mobility = mobility_state %>% left_join(state_key_map) %>% filter(state_type=="blue"|state_type=="red")%>% group_by(date, state_type) %>% summarise(avg_mobility_retail_recreation=mean(mobility_retail_and_recreation))
+ggplot(avg_retail_mobility, aes(x=date, y=avg_mobility_retail_recreation, color=state_type))+
+  geom_smooth(size=2, se=FALSE)+
+  scale_color_manual(name = "State type", values = c("dodgerblue3", "firebrick2"), 
+                    labels = c("Blue States","Red States"))+
+  scale_x_date(limits=as.Date(c("2020-01-01", "2021-12-11")),date_breaks="3 months", date_labels = "%Y-%m") +
+  labs(y="Avg percentage change of visits to retail and recreation (%)", x="Date", title="Line Plot of Average Percentage Change of Visits to \nRetail and Recreation in Blue States and Red States Respectively")+
+  theme_bw()+
+  theme(plot.title = element_text(face = "bold"),
+        plot.subtitle = element_text(face = "bold", color = "grey35"),
+        plot.caption = element_text(color = "grey68"),
+        legend.position="bottom",
+        axis.text.x = element_text(size=8))
+```
+
+Even though the red states react faster than the blue states, it seems that the policies of the blue states are more effective than that of the red states. From the above line plot, it is clear that the average percentage change of visits to retail and recreation of blue states is lower than that of the red states at any time from Febrary 2020 to December 2021. In other words, the amount of visits decreased is larger in blue states than in red states, indicating that people in the blue states regulate their visits more than the people in the red states.
+
+### Difference in the popularity of each type of vaccines. 
+```{r}
+vaccinations_state <- readr::read_csv(here::here("./data/vaccinations_us_state.csv"))
+
+vaccinations_by_type = vaccinations_state %>% group_by(date) %>% summarise(sum_pfizer=sum(cumulative_persons_fully_vaccinated_pfizer), sum_moderna=sum(cumulative_persons_fully_vaccinated_moderna), sum_janssen=sum(cumulative_persons_fully_vaccinated_janssen)) %>% filter(!is.na(sum_pfizer))
+
+vac_type_quarter = vaccinations_by_type %>% filter(date %in% as.Date(c("2021-03-08", "2021-06-08", "2021-09-08", "2021-12-08")))
+
+vac_type_increase = vac_type_quarter %>% mutate(pfizer=sum_pfizer-lag(sum_pfizer, default=0), moderna=sum_moderna-lag(sum_moderna, default=0), janssen=sum_janssen-lag(sum_janssen, default=0)) %>% select(date, pfizer, moderna, janssen) %>% pivot_longer(!date, names_to="vac_type", values_to="increase")
+
+  
+ggplot(vac_type_increase, aes(as.character(date), increase)) +
+  geom_bar(aes(fill = vac_type), position = "dodge", stat = "identity")+
+  scale_fill_manual(name = "Vaccine Type", values = c("violet", "hotpink", "skyblue"), 
+                    labels = c("Janssen","Moderna","Pfizer"))+
+  labs(y="Counts of new fully vaccinated persons", x="Date", title="Comparisons of Usage of Each Type of vaccines")+
+  theme_bw()+
+  theme(plot.title = element_text(face = "bold"),
+        plot.subtitle = element_text(face = "bold", color = "grey35"),
+        plot.caption = element_text(color = "grey68"),
+        legend.position="bottom")
+  
+```
+
+From the vaccination table, we generate a quarterly report of the usage of each type of vaccines. The ranking of the popularity of each type of vaccines is consistent across all quarters. Vaccines that are used the most are those produced by Pfizer, followed by those produced by Moderna, and those produced by Janssen are used the least. This finding indicates that vaccines produced by Pfizer are the most popular ones, probably for their effectiveness and reliability. 

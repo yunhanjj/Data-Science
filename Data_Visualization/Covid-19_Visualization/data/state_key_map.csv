@@ -1,0 +1,57 @@
+location_key,state_name,state_type
+US_AK,Alaska,red
+US_AL,Alabama,red
+US_AR,Arkansas,red
+US_AS,American Samoa,None
+US_AZ,Arizona,blue
+US_CA,California,blue
+US_CO,Colorado,blue
+US_CT,Connecticut,blue
+US_DC,District of Columbia,None
+US_DE,Delaware,blue
+US_FL,Florida,red
+US_GA,Georgia,blue
+US_GU,Guam,None
+US_HI,Hawaii,blue
+US_IA,Iowa,red
+US_ID,Idaho,red
+US_IL,Illinois,blue
+US_IN,Indiana,red
+US_KS,Kansas,red
+US_KY,Kentucky,red
+US_LA,Louisiana,red
+US_MA,Massachusetts,blue
+US_MD,Maryland,blue
+US_ME,Maine,blue
+US_MI,Michigan,blue
+US_MN,Minnesota,blue
+US_MO,Missouri,red
+US_MP,Northern Mariana Islands,None
+US_MS,Mississippi,red
+US_MT,Montana,red
+US_NC,North Carolina,red
+US_ND,North Dakota,red
+US_NE,Nebraska,red
+US_NH,New Hampshire,blue
+US_NJ,New Jersey,blue
+US_NM,New Mexico,blue
+US_NV,Nevada,blue
+US_NY,New York,blue
+US_OH,Ohio,red
+US_OK,Oklahoma,red
+US_OR,Oregon,blue
+US_PA,Pennsylvania,blue
+US_PR,Puerto Rico,None
+US_RI,Rhode Island,blue
+US_SC,South Carolina,red
+US_SD,South Dakota,red
+US_TN,Tennessee,red
+US_TX,Texas,red
+US_UT,Utah,red
+US_VA,Virginia,blue
+US_VI,Virgin Islands,None
+US_VT,Vermont,blue
+US_WA,Washington,blue
+US_WI,Wisconsin,blue
+US_WV,West Virginia,red
+US_WY,Wyoming,red

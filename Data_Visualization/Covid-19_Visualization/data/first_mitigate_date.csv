@@ -1,0 +1,52 @@
+location_key,state_name,first_mitigate_date
+US_AK,Alaska,2020-03-09
+US_AL,Alabama,2020-03-13
+US_AR,Arkansas,2020-03-11
+US_AZ,Arizona,2020-03-11
+US_CA,California,2020-03-04
+US_CO,Colorado,2020-03-11
+US_CT,Connecticut,2020-03-10
+US_DC,District of Columbia,2020-03-11
+US_DE,Delaware,2020-03-13
+US_FL,Florida,2020-03-01
+US_GA,Georgia,2020-03-14
+US_HI,Hawaii,2020-03-04
+US_IA,Iowa,2020-03-09
+US_ID,Idaho,2020-03-13
+US_IL,Illinois,2020-03-09
+US_IN,Indiana,2020-03-06
+US_KS,Kansas,2020-03-12
+US_KY,Kentucky,2020-03-06
+US_LA,Louisiana,2020-03-11
+US_MA,Massachusetts,2020-03-10
+US_MD,Maryland,2020-03-05
+US_ME,Maine,2020-03-15
+US_MI,Michigan,2020-03-10
+US_MN,Minnesota,2020-03-13
+US_MO,Missouri,2020-03-13
+US_MS,Mississippi,2020-03-14
+US_MT,Montana,2020-03-12
+US_NC,North Carolina,2020-03-10
+US_ND,North Dakota,2020-03-13
+US_NE,Nebraska,2020-03-13
+US_NH,New Hampshire,2020-03-13
+US_NJ,New Jersey,2020-03-09
+US_NM,New Mexico,2020-03-11
+US_NV,Nevada,2020-03-12
+US_NY,New York,2020-03-07
+US_OH,Ohio,2020-03-09
+US_OK,Oklahoma,2020-03-15
+US_OR,Oregon,2020-03-08
+US_PA,Pennsylvania,2020-03-06
+US_RI,Rhode Island,2020-03-09
+US_SC,South Carolina,2020-03-13
+US_SD,South Dakota,2020-03-13
+US_TN,Tennessee,2020-03-12
+US_TX,Texas,2020-03-13
+US_UT,Utah,2020-03-06
+US_VA,Virginia,2020-03-12
+US_VT,Vermont,2020-03-13
+US_WA,Washington,2020-02-29
+US_WI,Wisconsin,2020-03-12
+US_WV,West Virginia,2020-03-04
+US_WY,Wyoming,2020-03-13

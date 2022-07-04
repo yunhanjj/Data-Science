@@ -1,0 +1,23 @@
+--- 
+title: "Analysis on Country Data related to COVID-19"
+author: "Zeyu Jin, Yunhan Jin"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+---
+
+# Introduction
+
+Since the beginning of 2020, COVID-19 has completely changed the way people live around the world. Even till this date, almost two years later, its impact has not diminished. Our study aims to investigate the health, economic, and political impact of COVID-19 in various countries around the world, in addition to a comprehensive study on all states within the United States. 
+
+This project draws data from [COVID-19 Open Dataset](https://github.com/GoogleCloudPlatform/covid-19-open-data), which contains aggregated data tables from sources such as Wikidata, DataCommons, Eurostat, WorldBank, WorldPop, LawAtlas Project, University of Oxford, Google LLC, and etc. We decided to use this dataset as it only aggregated data without cleaning or processing the data from the original sources, and it clearly indicates the sources and licences for all data points in every single table we use. 
+
+Having these data, this project aims to investigate the following questions:
+
+- How much is economy affected by the rise of COVID-19 in different countries?
+- Has government interventions been effective in controlling the spread of COVID-19?
+- Are regions with good health records more resistant to the COVID-19 spread?
+
+In the following chapters, we will discuss these questions and provide visualization and insights from our data. 
+
+For more details for the project, please click this [link](https://github.com/Cosmos0603/Covid-19_Visualization.git), or copy the URL https://github.com/Cosmos0603/Covid-19_Visualization to open in a browser.
+

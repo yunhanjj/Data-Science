@@ -1,0 +1,132 @@
+# Data transformation
+
+```{r, message=FALSE, warning=FALSE}
+library(here)
+library(readr)
+library(tidyverse)
+```
+
+The transformation and pre-processing of our data is performed in python. Detailed code can be access here: [data transformation notebook](https://github.com/Cosmos0603/5GAnalysis/blob/main/EDA_Final_Proj.ipynb)
+
+## Epidemiology Table
+
+For the epidemiology data, the raw data is consist of both country level and US state level datapoints. So we divided it into two tables, one for global country level and the other for the US state level, and we keep only the most relevant columns. The preprocessing steps is as following:
+
+* Filter column `location_key`. If it is a key corresponding to a country, we add the row into our country-level table; it it is a US state key, we add the row into our state-level table.
+* Select columns: `date`, `location_key`, `new_confirmed`, `new_deceased`, `cumulative_confirmed`, `cumulative_deceased`
+
+After cleaning, the country-level table has `163609` rows and `6` columns while the state-level table has `38537` rows and `6` columns.
+
+Country-level table:
+```{r}
+epi_country <- readr::read_csv(here::here("./data/epi_country.csv"))
+epi_country
+```
+
+State-level table:
+```{r}
+epi_state <- readr::read_csv(here::here("./data/epi_us_state.csv"))
+epi_state
+```
+
+Description of each column is as following (The country-level and the state-level table has the same structure):
+```{r, echo=FALSE, results='asis'}
+knitr::kable(data.frame(
+                description = c('date','location_key','new_confirmed','new_deceased','cumulative_confirmed', 'cumulative_deceased'),
+                category = c("The date of the record","The code corresponding to the country/state","# of new Covid confirmed cases of the date in the country/state", "# of new Covid deceased cases of the date in the country/state", "# of cumulative Covid confirmed cases of the date in the country/state", "# of cumulative Covid deceased cases of the date in the country/state")
+              ), 
+             col.names = c('Column','Description'),
+             row.names = F,font_size = 10)
+```
+
+## Economy Table
+
+The raw data of the economy table are country-level economic statistics. We extracted only the same set of countries as in other tables to keep consistency across tables. The resulting table has 203 rows and three columns.
+
+```{r}
+econ_country <- readr::read_csv(here::here("./data/econ_country.csv"))
+econ_country
+```
+
+Description of each column is as following (The country-level and the state-level table has the same structure):
+```{r, echo=FALSE, results='asis'}
+knitr::kable(data.frame(
+                description = c('location_key','gdp_usd','gdp_per_capita_usd'),
+                category = c("The code corresponding to the country","Gross domestic product of the country in US dollars", "Gross domestic product of the country in US dollars divided by its total population")
+              ), 
+             col.names = c('Column','Description'),
+             row.names = F,font_size = 10)
+```
+
+## First Mitigation Date Table
+
+The raw data are a table recording the mitigation policies and emergency declarations status of each state in the US. We derive the date that the first mitigation policy is published in each state from the raw data and formulate a new table of 51 rows and 2 columns.
+
+```{r}
+first_mitigate <- readr::read_csv(here::here("./data/first_mitigate_date.csv"))
+first_mitigate
+```
+
+Description of each column is as following:
+```{r, echo=FALSE, results='asis'}
+knitr::kable(data.frame(
+                description = c('state_code','first_mitigate_date'),
+                category = c("The code corresponding to the state (e.g. US_CA)", "the date that the first mitigation policy is published in the state")
+              ), 
+             col.names = c('Column','Description'),
+             row.names = F,font_size = 10)
+```
+
+## Health Table
+
+The raw data give several health indicators such as `smoke prevalence` in different regions. As country-level and state-level information are mixed together in the raw data, we need to separate them into two tables. 
+
+Preprocessing steps:
+
+* Filter column `location_key`. If it is a key corresponding to a country, we add the row into our country-level table; if it is a US state key, we add the row into our state-level table.
+* As the state-level information only contains one health indicator, `life_expectancy`, and all other columns are all NAs. 
+
+Country-level table:
+```{r}
+health_country <- readr::read_csv(here::here("./data/health_country.csv"))
+health_country
+```
+
+State-level table:
+```{r}
+health_state <- readr::read_csv(here::here("./data/health_us_state.csv"))
+health_state
+```
+
+## Mobility Table
+
+Only state-level information are available in the raw data. After cleaning the data and select only the valid state code, we generate a table of `33762` rows and `8` columns.
+
+```{r}
+mobility_state <- readr::read_csv(here::here("./data/mobility_us_state.csv"))
+```
+
+Description of each column is as following:
+```{r, echo=FALSE, results='asis'}
+knitr::kable(data.frame(
+                description = c('date','location_key', 'mobility_retail_and_recreation', 'mobility_grocery_and_pharmacy', 'mobility_parks', 'mobility_transit_stations', 'mobility_workplaces','mobility_residential'),
+                category = c("The date of the data being recorded", "The code corresponding to the country/state", "percentage change in visits to retail and recreation", "percentage change in visits to grocery and pharmacy", "percentage change in visits to parks", "percentage change in visits to transit stations", "percentage change in visits to workplaces", "percentage change in visits to residential areas")
+              ), 
+             col.names = c('Column','Description'),
+             row.names = F,font_size = 10)
+```
+
+## Vaccination Table
+
+The raw data of vaccination records also have country-level and state-level mixed together. So we separated them into two tables. Moreover, we found out that country-level records do no have information about vaccine of different providers (e.g. Pfizer, Moderna, Janssen), so we remove these columns from the country-level table.
+
+```{r}
+vaccinations_country <- readr::read_csv(here::here("./data/vaccinations_country.csv"))
+vaccinations_country
+```
+
+```{r}
+vaccinations_state <- readr::read_csv(here::here("./data/vaccinations_us_state.csv"))
+vaccinations_state
+```
+
